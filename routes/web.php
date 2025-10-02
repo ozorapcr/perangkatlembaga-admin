@@ -1,7 +1,6 @@
 <?php
+use App\Http\Controllers\Admin\PerangkatDesaController;
 
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])->group(function () {
+    Route::resource('perangkat', PerangkatDesaController::class);
 });
