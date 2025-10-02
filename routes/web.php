@@ -1,6 +1,6 @@
 <?php
-use App\Http\Controllers\Admin\PerangkatDesaController;
 
-Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])->group(function () {
-    Route::resource('perangkat', PerangkatDesaController::class);
-});
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+
+Route::get('/home', [HomeController::class, 'index']);
