@@ -116,6 +116,6 @@ class AuthController extends Controller
             'ketua' => 'ketua_rw'
         ];
 
-        return $roles[$username] ?? 'user';
+        return $roles[$username] ?? 'admin';
     }
 }

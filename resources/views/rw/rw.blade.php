@@ -9,7 +9,7 @@
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr>
-                <th>RW IDpp</th>
+                <th>RW ID</th>
                 <th>Nomor RW</th>
                 <th>Ketua RW (Warga ID)</th>
                 <th>Keterangan</th>

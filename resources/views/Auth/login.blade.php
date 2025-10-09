@@ -134,20 +134,7 @@
                             </div>
                         </form>
 
-                        <div class="text-center">
-                            <p class="text-muted mb-2">
-                                <small>Demo Account:</small>
-                            </p>
-                            <p class="small text-muted mb-1">
-                                <strong>Username:</strong> admin | <strong>Email:</strong> admin@rw.com | <strong>Password:</strong> password123
-                            </p>
-                            <p class="small text-muted mb-1">
-                                <strong>Username:</strong> user | <strong>Email:</strong> user@rw.com | <strong>Password:</strong> user123
-                            </p>
-                            <p class="small text-muted">
-                                <strong>Username:</strong> ketua | <strong>Email:</strong> ketua@rw.com | <strong>Password:</strong> ketua123
-                            </p>
-                        </div>
+                       
                     </div>
                 </div>
             </div>

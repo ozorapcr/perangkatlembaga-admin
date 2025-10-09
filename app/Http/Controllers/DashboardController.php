@@ -27,9 +27,9 @@ class DashboardController extends Controller
         // Data statistik untuk dashboard
         $stats = [
             'total_rw' => 5,
-            'total_warga' => 1250,
-            'total_rt' => 15,
-            'active_events' => 3
+            'total_warga' => 2065,
+            'total_rt' => 24,
+            'active_events' => 7
         ];
 
         // Recent activities
