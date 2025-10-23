@@ -3,119 +3,104 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
     /**
-     * Menampilkan form login
+     * Tampilkan halaman login.
      */
     public function showLoginForm()
     {
-        // Jika sudah login, redirect ke dashboard
-        if (session('user_logged_in')) {
+        // Jika user sudah login, arahkan ke dashboard
+        if (Session::get('user_logged_in')) {
             return redirect()->route('dashboard');
         }
-        
+
         return view('auth.login');
     }
 
     /**
-     * Proses login
+     * Tampilkan halaman register.
+     */
+    public function showRegisterForm()
+    {
+        // Jika user sudah login, tidak perlu register lagi
+        if (Session::get('user_logged_in')) {
+            return redirect()->route('dashboard');
+        }
+
+        return view('auth.register');
+    }
+
+    /**
+     * Proses registrasi user baru.
+     */
+    public function register(Request $request)
+    {
+        // Validasi input tanpa konfirmasi password
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:5',
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password minimal 5 karakter.',
+        ]);
+
+        // Simpan user ke database
+        User::create([
+            'name' => ucfirst($request->name),
+            'email' => strtolower($request->email),
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('login')->with('success', 'Pendaftaran berhasil! Silakan login.');
+    }
+
+    /**
+     * Proses login user.
      */
     public function login(Request $request)
     {
         // Validasi input
         $request->validate([
-            'username' => 'required|string',
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required',
+        ], [
+            'email.required' => 'Email wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
         ]);
 
-        $username = $request->username;
-        $email = $request->email;
-        $password = $request->password;
+        // Ambil data user berdasarkan email
+        $user = User::where('email', $request->email)->first();
 
-        // Cek credentials
-        if ($this->checkCredentials($username, $email, $password)) {
-            // Simpan session login
-            session([
-                'user_logged_in' => true,
-                'user_username' => $username,
-                'user_email' => $email,
-                'user_role' => $this->getUserRole($username),
-                'login_time' => date('Y-m-d H:i:s')
-            ]);
+        // Cek user dan password
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Simpan data ke session
+            Session::put('user_logged_in', true);
+            Session::put('user_id', $user->id);
+            Session::put('user_name', $user->name);
+            Session::put('user_email', $user->email);
 
-            return redirect()->route('dashboard')
-                ->with('success', 'Login berhasil! Selamat datang ' . $username);
+            return redirect()->route('dashboard')->with('success', 'Login berhasil! Selamat datang, ' . $user->name);
         }
 
-        return back()->withErrors([
-            'login_error' => 'Username, email atau password salah.',
-        ])->withInput($request->except('password'));
+        // Jika gagal login
+        return back()->with('error', 'Email atau password salah.');
     }
 
     /**
-     * Proses logout
+     * Logout user (hapus session).
      */
-    public function logout(Request $request)
+    public function logout()
     {
-        $username = session('user_username', 'User');
-        
-        // Hapus semua session
-        session()->flush();
-
-        return redirect()->route('login')
-            ->with('success', "Logout berhasil! Sampai jumpa $username.");
-    }
-
-    /**
-     * Cek kredensial login
-     */
-    private function checkCredentials($username, $email, $password)
-    {
-        $validUsers = [
-            'zora' => [
-                'email' => 'ozora24si@mahasiswa.pcr.ac.id',
-                'password' => 'ozora1002',
-                'role' => 'administrator'
-            ],
-            'user' => [
-                'email' => 'user@rw.com', 
-                'password' => 'user123',
-                'role' => 'user'
-            ],
-            'ketua' => [
-                'email' => 'ketua@rw.com', 
-                'password' => 'ketua123',
-                'role' => 'ketua_rw'
-            ]
-        ];
-
-        // Cek jika username ada di validUsers
-        if (array_key_exists($username, $validUsers)) {
-            $user = $validUsers[$username];
-            
-            // Cek email dan password
-            if ($email === $user['email'] && $password === $user['password']) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Get user role
-     */
-    private function getUserRole($username)
-    {
-        $roles = [
-            'admin' => 'administrator',
-            'user' => 'user',
-            'ketua' => 'ketua_rw'
-        ];
-
-        return $roles[$username] ?? 'admin';
+        Session::flush();
+        return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
     }
 }
