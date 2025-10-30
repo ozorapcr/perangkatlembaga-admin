@@ -100,7 +100,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        Session::flush();
+        Session::flush();   
         return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
     }
 }

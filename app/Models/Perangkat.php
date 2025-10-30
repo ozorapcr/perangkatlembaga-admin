@@ -9,8 +9,7 @@ class Perangkat extends Model
 {
     use HasFactory;
 
-    protected $table = 'perangkat_desa';
-    protected $primaryKey = 'perangkat_id';
+    protected $table = 'perangkat';
 
     protected $fillable = [
         'warga_id',
@@ -20,4 +19,10 @@ class Perangkat extends Model
         'periode_mulai',
         'periode_selesai',
     ];
+
+    // Relasi ke tabel warga
+    public function warga()
+    {
+        return $this->belongsTo(Warga::class, 'warga_id');
+    }
 }

@@ -2,101 +2,107 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Perangkat;
+use App\Models\Warga;
+use Illuminate\Http\Request;
 
 class PerangkatController extends Controller
 {
     /**
-     * Menampilkan semua data perangkat desa.
+     * 🔹 Tampilkan semua data perangkat desa
      */
     public function index()
     {
-        $data = Perangkat::all();
+        $data = Perangkat::with('warga')->get();
 
         return view('perangkat.index', [
             'page' => 'perangkat',
-            'data' => $data
+            'data' => $data,
         ]);
     }
 
     /**
-     * Menampilkan form tambah perangkat.
+     * 🔹 Tampilkan form tambah perangkat baru
      */
     public function create()
     {
-        return view('perangkat.create', ['page' => 'perangkat']);
+        $warga = Warga::all();
+
+        return view('perangkat.create', [
+            'page' => 'perangkat',
+            'warga' => $warga,
+        ]);
     }
 
     /**
-     * Simpan data perangkat baru.
+     * 🔹 Simpan data perangkat baru ke database
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'warga_id' => 'required|integer',
+        $validated = $request->validate([
+            'warga_id' => 'required|exists:warga,id', // ✅ diperbaiki dari "wargas" ke "warga"
             'jabatan' => 'required|string|max:100',
             'nip' => 'nullable|string|max:50',
             'kontak' => 'nullable|string|max:20',
             'periode_mulai' => 'nullable|date',
-            'periode_selesai' => 'nullable|date',
+            'periode_selesai' => 'nullable|date|after_or_equal:periode_mulai',
         ]);
 
-        Perangkat::create([
-            'warga_id' => $request->warga_id,
-            'jabatan' => $request->jabatan,
-            'nip' => $request->nip,
-            'kontak' => $request->kontak,
-            'periode_mulai' => $request->periode_mulai,
-            'periode_selesai' => $request->periode_selesai,
-        ]);
+        Perangkat::create($validated);
 
-        return redirect()->route('perangkat.index')->with('success', 'Data perangkat berhasil ditambahkan.');
+        return redirect()
+            ->route('perangkat.index')
+            ->with('success', 'Data perangkat berhasil ditambahkan.');
     }
 
     /**
-     * Menampilkan form edit perangkat.
+     * 🔹 Tampilkan form edit perangkat berdasarkan ID
      */
-    public function edit(Perangkat $perangkat)
+    public function edit($id)
     {
+        $perangkat = Perangkat::findOrFail($id);
+        $warga = Warga::all();
+
         return view('perangkat.edit', [
             'page' => 'perangkat',
-            'perangkat' => $perangkat
+            'perangkat' => $perangkat,
+            'warga' => $warga,
         ]);
     }
 
     /**
-     * Update data perangkat yang sudah ada.
+     * 🔹 Update data perangkat yang sudah ada
      */
-    public function update(Request $request, Perangkat $perangkat)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'warga_id' => 'required|integer',
+        $perangkat = Perangkat::findOrFail($id);
+
+        $validated = $request->validate([
+            'warga_id' => 'required|exists:warga,id', // ✅ diperbaiki juga di sini
             'jabatan' => 'required|string|max:100',
             'nip' => 'nullable|string|max:50',
             'kontak' => 'nullable|string|max:20',
             'periode_mulai' => 'nullable|date',
-            'periode_selesai' => 'nullable|date',
+            'periode_selesai' => 'nullable|date|after_or_equal:periode_mulai',
         ]);
 
-        $perangkat->update([
-            'warga_id' => $request->warga_id,
-            'jabatan' => $request->jabatan,
-            'nip' => $request->nip,
-            'kontak' => $request->kontak,
-            'periode_mulai' => $request->periode_mulai,
-            'periode_selesai' => $request->periode_selesai,
-        ]);
+        $perangkat->update($validated);
 
-        return redirect()->route('perangkat.index')->with('success', 'Data perangkat berhasil diperbarui.');
+        return redirect()
+            ->route('perangkat.index')
+            ->with('success', 'Data perangkat berhasil diperbarui.');
     }
 
     /**
-     * Hapus data perangkat.
+     * 🔹 Hapus data perangkat berdasarkan ID
      */
-    public function destroy(Perangkat $perangkat)
+    public function destroy($id)
     {
+        $perangkat = Perangkat::findOrFail($id);
         $perangkat->delete();
-        return redirect()->route('perangkat.index')->with('success', 'Data perangkat berhasil dihapus.');
+
+        return redirect()
+            ->route('perangkat.index')
+            ->with('success', 'Data perangkat berhasil dihapus.');
     }
 }
