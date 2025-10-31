@@ -72,3 +72,4 @@ Route::put('/warga/{id}', [WargaController::class, 'update'])->name('warga.updat
 
 // Hapus data warga
 Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
+
