@@ -15,7 +15,7 @@ class PerangkatController extends Controller
     {
         $data = Perangkat::with('warga')->get();
 
-        return view('perangkat.index', [
+        return view('pages.perangkat.index', [
             'page' => 'perangkat',
             'data' => $data,
         ]);
@@ -28,7 +28,7 @@ class PerangkatController extends Controller
     {
         $warga = Warga::all();
 
-        return view('perangkat.create', [
+        return view('pages.perangkat.create', [
             'page' => 'perangkat',
             'warga' => $warga,
         ]);
@@ -51,7 +51,7 @@ class PerangkatController extends Controller
         Perangkat::create($validated);
 
         return redirect()
-            ->route('perangkat.index')
+            ->route('pages.perangkat.index')
             ->with('success', 'Data perangkat berhasil ditambahkan.');
     }
 
@@ -63,7 +63,7 @@ class PerangkatController extends Controller
         $perangkat = Perangkat::findOrFail($id);
         $warga = Warga::all();
 
-        return view('perangkat.edit', [
+        return view('pages.perangkat.edit', [
             'page' => 'perangkat',
             'perangkat' => $perangkat,
             'warga' => $warga,
@@ -89,7 +89,7 @@ class PerangkatController extends Controller
         $perangkat->update($validated);
 
         return redirect()
-            ->route('perangkat.index')
+            ->route('pages.perangkat.index')
             ->with('success', 'Data perangkat berhasil diperbarui.');
     }
 
@@ -102,7 +102,7 @@ class PerangkatController extends Controller
         $perangkat->delete();
 
         return redirect()
-            ->route('perangkat.index')
+            ->route('pages.perangkat.index')
             ->with('success', 'Data perangkat berhasil dihapus.');
     }
 }

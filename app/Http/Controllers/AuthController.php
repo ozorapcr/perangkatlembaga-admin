@@ -19,7 +19,7 @@ class AuthController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('auth.login');
+        return view('pages.auth.login');
     }
 
     /**
@@ -32,7 +32,7 @@ class AuthController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('auth.register');
+        return view('pages.auth.register');
     }
 
     /**
@@ -100,7 +100,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        Session::flush();   
+        Session::flush();
         return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
     }
 }

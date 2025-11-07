@@ -13,7 +13,7 @@ class RwController extends Controller
     public function index()
     {
         $rws = Rw::all();
-        return view('rw.index', compact('rws'));
+        return view('pages.rw.index', compact('rws'));
     }
 
     /**
@@ -21,7 +21,7 @@ class RwController extends Controller
      */
     public function create()
     {
-        return view('rw.create');
+        return view('pages.rw.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class RwController extends Controller
     public function show($id)
     {
         $rw = Rw::findOrFail($id);
-        return view('rw.show', compact('rw'));
+        return view('pages.rw.show', compact('rw'));
     }
 
     /**
@@ -60,7 +60,7 @@ class RwController extends Controller
     public function edit($id)
     {
         $rw = Rw::findOrFail($id);
-        return view('rw.edit', compact('rw'));
+        return view('pages.rw.edit', compact('rw'));
     }
 
     /**
@@ -93,7 +93,7 @@ class RwController extends Controller
         $rw = Rw::findOrFail($id);
         $rw->delete();
 
-        return redirect()->route('rw.index')
+        return redirect()->route('pages.rw.index')
             ->with('success', 'Data RW berhasil dihapus!');
     }
 }

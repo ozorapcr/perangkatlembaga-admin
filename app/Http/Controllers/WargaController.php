@@ -11,7 +11,7 @@ class WargaController extends Controller
     public function index()
     {
         $warga = Warga::latest()->paginate(10);
-        return view('warga.index', [
+        return view('pages.warga.index', [
             'warga' => $warga,
             'page' => 'warga' // 🔥 kirim ke layout
         ]);
@@ -20,7 +20,7 @@ class WargaController extends Controller
     // ✅ Form tambah warga
     public function create()
     {
-        return view('warga.create', ['page' => 'warga']);
+        return view('pages.warga.create', ['page' => 'warga']);
     }
 
     // ✅ Simpan data warga baru
@@ -34,14 +34,14 @@ class WargaController extends Controller
         ]);
 
         Warga::create($request->all());
-        return redirect()->route('warga.index')->with('success', 'Data warga berhasil ditambahkan.');
+        return redirect()->route('pages.warga.index')->with('success', 'Data warga berhasil ditambahkan.');
     }
 
     // ✅ Form edit warga
     public function edit($id)
     {
         $warga = Warga::findOrFail($id);
-        return view('warga.edit', [
+        return view('pages.warga.edit', [
             'warga' => $warga,
             'page' => 'warga' // 🔥 penting juga di sini
         ]);
@@ -60,13 +60,13 @@ class WargaController extends Controller
         ]);
 
         $warga->update($request->all());
-        return redirect()->route('warga.index')->with('success', 'Data warga berhasil diperbarui.');
+        return redirect()->route('pages.warga.index')->with('success', 'Data warga berhasil diperbarui.');
     }
 
     // ✅ Hapus data warga
     public function destroy($id)
     {
         Warga::destroy($id);
-        return redirect()->route('warga.index')->with('success', 'Data warga berhasil dihapus.');
+        return redirect()->route('pages.warga.index')->with('success', 'Data warga berhasil dihapus.');
     }
 }
