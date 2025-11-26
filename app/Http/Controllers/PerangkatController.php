@@ -106,3 +106,4 @@ class PerangkatController extends Controller
             ->with('success', 'Data perangkat berhasil dihapus.');
     }
 }
+
