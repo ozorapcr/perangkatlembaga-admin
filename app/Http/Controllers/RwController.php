@@ -8,11 +8,23 @@ use Illuminate\Http\Request;
 class RwController extends Controller
 {
     /**
-     * Menampilkan semua data RW
+     * Menampilkan semua data RW dengan pagination, filter, dan search
      */
-    public function index()
+    public function index(Request $request)
     {
-        $rws = Rw::all();
+        // Kolom yang bisa di-filter
+        $filterableColumns = ['nomorRw'];
+        
+        // Kolom yang bisa di-search
+        $searchableColumns = ['nomorRw', 'keterangan'];
+
+        // Query data dengan filter, search, dan pagination
+        $rws = Rw::filter($request, $filterableColumns)
+                ->search($request, $searchableColumns)
+                ->orderBy('nomorRw', 'asc')
+                ->paginate(10)
+                ->withQueryString();
+
         return view('pages.rw.index', compact('rws'));
     }
 
@@ -30,7 +42,7 @@ class RwController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomorRw' => 'required|string|max:50',
+            'nomorRw' => 'required|string|max:50|unique:rws,nomorRw',
             'ketuaRwWargaId' => 'nullable|numeric',
             'keterangan' => 'nullable|string|max:255',
         ]);
@@ -69,7 +81,7 @@ class RwController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nomorRw' => 'required|string|max:50',
+            'nomorRw' => 'required|string|max:50|unique:rws,nomorRw,' . $id,
             'ketuaRwWargaId' => 'nullable|numeric',
             'keterangan' => 'nullable|string|max:255',
         ]);
@@ -93,7 +105,7 @@ class RwController extends Controller
         $rw = Rw::findOrFail($id);
         $rw->delete();
 
-        return redirect()->route('pages.rw.index')
+        return redirect()->route('rw.index')
             ->with('success', 'Data RW berhasil dihapus!');
     }
 }

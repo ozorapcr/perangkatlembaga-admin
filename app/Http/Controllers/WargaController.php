@@ -7,16 +7,25 @@ use Illuminate\Http\Request;
 
 class WargaController extends Controller
 {
-    // ✅ Tampilkan semua warga
-    public function index()
+    // ✅ Tampilkan semua warga dengan filter dan search
+    public function index(Request $request)
     {
-        $warga = Warga::latest()->paginate(10);
+        // Daftar kolom yang bisa difilter sesuai name pada form
+        $filterableColumns = ['alamat'];
+        $searchableColumns = ['nama', 'nik', 'alamat', 'no_hp'];
+
+        // Gunakan scope filter dan search
+        $warga = Warga::filter($request, $filterableColumns)
+                     ->search($request, $searchableColumns)
+                     ->latest()
+                     ->paginate(10);
+
         return view('pages.warga.index', [
             'warga' => $warga,
             'page' => 'warga' // 🔥 kirim ke layout
         ]);
     }
-
+    
     // ✅ Form tambah warga
     public function create()
     {
