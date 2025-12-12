@@ -121,6 +121,19 @@
             font-size: 0.95rem;
         }
 
+        .success-container {
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            background-color: rgba(42, 157, 143, 0.1);
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
         .error-container {
             margin-bottom: 20px;
         }
@@ -271,6 +284,14 @@
                 <p>Isi informasi di bawah untuk mendaftar</p>
             </div>
 
+            @if(session('success'))
+                <div class="success-container">
+                    <div class="success-message">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="error-container">
                     <div class="error-list">
@@ -283,13 +304,13 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('register') }}" id="registerForm">
+            <form method="POST" action="{{ route('register.post') }}" id="registerForm">
                 @csrf
 
                 <div class="form-group">
                     <label for="name">Nama Lengkap</label>
                     <div class="input-group">
-                        <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap Anda" required>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap Anda" required value="{{ old('name') }}">
                         <span class="input-icon">👤</span>
                     </div>
                 </div>
@@ -297,7 +318,7 @@
                 <div class="form-group">
                     <label for="email">Alamat Email</label>
                     <div class="input-group">
-                        <input type="email" id="email" name="email" placeholder="nama@contoh.com" required>
+                        <input type="email" id="email" name="email" placeholder="nama@contoh.com" required value="{{ old('email') }}">
                         <span class="input-icon">✉️</span>
                     </div>
                 </div>

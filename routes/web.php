@@ -14,14 +14,10 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
 // Dashboard (hanya bisa diakses jika sudah login)
-
-
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
-
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -72,4 +68,3 @@ Route::put('/warga/{id}', [WargaController::class, 'update'])->name('warga.updat
 
 // Hapus data warga
 Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
-
