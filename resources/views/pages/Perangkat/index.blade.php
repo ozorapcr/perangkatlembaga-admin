@@ -19,10 +19,8 @@
                         </div>
                     @endif
 
-                    <!-- Form Filter dan Search -->
                     <form method="GET" action="{{ route('perangkat.index') }}" class="mb-4">
                         <div class="row g-3">
-                            <!-- Filter Jabatan -->
                             <div class="col-md-3">
                                 <label for="jabatan" class="form-label small fw-bold">Filter Jabatan:</label>
                                 <select name="jabatan" id="jabatan" class="form-select form-select-sm" onchange="this.form.submit()">
@@ -38,23 +36,21 @@
                                 </select>
                             </div>
 
-                            <!-- Search -->
                             <div class="col-md-4">
                                 <label for="search" class="form-label small fw-bold">Search:</label>
                                 <div class="input-group input-group-sm">
                                     <input type="text" name="search" class="form-control" 
-                                           value="{{ request('search') }}" placeholder="Search jabatan, NIP, kontak..." 
-                                           aria-label="Search">
+                                            value="{{ request('search') }}" placeholder="Search jabatan, NIP, kontak..." 
+                                            aria-label="Search">
                                     <button type="submit" class="btn btn-outline-primary">
                                         <i class="fas fa-search"></i>
                                     </button>
                                     @if(request('search'))
-                                        <a href="{{ request()->fullUrlWithQuery(['search'=> null]) }}" class="btn btn-outline-secondary">Clear</a>
+                                        <a href="{{ route('perangkat.index', request()->except(['search', 'page'])) }}" class="btn btn-outline-secondary">Clear</a>
                                     @endif
                                 </div>
                             </div>
 
-                            <!-- Reset Button -->
                             <div class="col-md-2 d-flex align-items-end">
                                 <a href="{{ route('perangkat.index') }}" class="btn btn-secondary btn-sm">
                                     <i class="fas fa-refresh"></i> Reset All
@@ -63,7 +59,6 @@
                         </div>
                     </form>
 
-                    <!-- Table dengan horizontal scroll -->
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover table-sm">
                             <thead class="table-dark">
@@ -84,26 +79,26 @@
                                     <td class="text-center">{{ $i+1 }}</td>
                                     <td class="text-center">
                                         @if($row->foto)
-                                            <img src="{{ Storage::url($row->foto) }}" alt="Foto Profil" 
-                                                 class="rounded-circle border" 
-                                                 style="width: 50px; height: 50px; object-fit: cover;"
-                                                 onerror="this.onerror=null; this.src='//via.placeholder.com/50x50?text=No+Image';">
+                                            {{-- MENGGUNAKAN HELPER ASSET DENGAN PATH 'storage/' --}}
+                                            <img src="{{ asset('storage/' . $row->foto) }}" 
+                                                alt="Foto Profil" 
+                                                class="rounded-circle border" 
+                                                style="width: 50px; height: 50px; object-fit: cover;"
+                                                onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode($row->warga->nama ?? 'Unknown') }}&background=E91E63&color=fff&size=50';">
                                         @else
-                                            <!-- Avatar dengan inisial nama -->
                                             @php
                                                 $nama = $row->warga->nama ?? 'Unknown';
                                                 $names = explode(' ', $nama);
-                                                $initials = '';
-                                                foreach ($names as $name) {
-                                                    $initials .= strtoupper(substr($name, 0, 1));
-                                                }
-                                                $initials = substr($initials, 0, 2);
+                                                // Ambil inisial 2 kata pertama atau 1 kata pertama
+                                                $initials = (count($names) > 1) ? 
+                                                            strtoupper(substr($names[0], 0, 1) . substr(end($names), 0, 1)) :
+                                                            strtoupper(substr($names[0], 0, 1));
                                                 $colors = ['primary', 'success', 'danger', 'warning', 'info', 'secondary'];
                                                 $color = $colors[array_rand($colors)];
                                             @endphp
                                             <div class="bg-{{ $color }} text-white rounded-circle d-inline-flex align-items-center justify-content-center"
-                                                 style="width: 50px; height: 50px; font-weight: bold; font-size: 14px;"
-                                                 title="{{ $row->warga->nama ?? '-' }}">
+                                                style="width: 50px; height: 50px; font-weight: bold; font-size: 14px;"
+                                                title="{{ $row->warga->nama ?? '-' }}">
                                                 {{ $initials }}
                                             </div>
                                         @endif
@@ -117,13 +112,13 @@
                                     </td>
                                     <td>
                                         <small class="text-truncate d-inline-block" style="max-width: 110px;" 
-                                               title="{{ $row->nip ?? '-' }}">
+                                                title="{{ $row->nip ?? '-' }}">
                                             {{ $row->nip ?? '-' }}
                                         </small>
                                     </td>
                                     <td>
                                         <small class="text-truncate d-inline-block" style="max-width: 110px;" 
-                                               title="{{ $row->kontak ?? '-' }}">
+                                                title="{{ $row->kontak ?? '-' }}">
                                             {{ $row->kontak ?? '-' }}
                                         </small>
                                     </td>
@@ -136,13 +131,13 @@
                                     <td class="text-center">
                                         <div class="btn-group btn-group-sm" role="group">
                                             <a href="{{ route('perangkat.edit', $row->id) }}" 
-                                               class="btn btn-warning" 
-                                               title="Edit">
+                                                class="btn btn-warning" 
+                                                title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <form action="{{ route('perangkat.destroy', $row->id) }}" method="POST" 
-                                                  style="display:inline-block" 
-                                                  onsubmit="return confirm('Yakin ingin menghapus data perangkat ini?')">
+                                                    style="display:inline-block" 
+                                                    onsubmit="return confirm('Yakin ingin menghapus data perangkat ini?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" title="Hapus">
@@ -171,7 +166,6 @@
                         </table>
                     </div>
 
-                    <!-- Info jumlah data -->
                     @if($data->count() > 0)
                         <div class="mt-3 text-muted small">
                             Menampilkan <strong>{{ $data->count() }}</strong> data perangkat

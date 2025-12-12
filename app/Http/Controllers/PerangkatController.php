@@ -6,19 +6,15 @@ use App\Models\Perangkat;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class PerangkatController extends Controller
 {
-    /**
-     * 🔹 Tampilkan semua data perangkat desa dengan filter
-     */
     public function index(Request $request)
     {
-        // Daftar kolom yang bisa difilter sesuai name pada form
         $filterableColumns = ['jabatan'];
         $searchableColumns = ['jabatan', 'nip', 'kontak'];
-    
-        // Gunakan scope filter dan search
+
         $data = Perangkat::with('warga')
                     ->filter($request, $filterableColumns)
                     ->search($request, $searchableColumns)
@@ -30,14 +26,10 @@ class PerangkatController extends Controller
         ]);
     }
 
-    /**
-     * 🔹 Tampilkan form tambah perangkat baru
-     */
     public function create()
     {
         $warga = Warga::all();
-        
-        // Daftar pilihan jabatan
+
         $jabatanOptions = [
             'Kepala Desa',
             'Sekretaris Desa',
@@ -56,9 +48,6 @@ class PerangkatController extends Controller
         ]);
     }
 
-    /**
-     * 🔹 Simpan data perangkat baru ke database
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -71,28 +60,40 @@ class PerangkatController extends Controller
             'periode_selesai' => 'nullable|date|after_or_equal:periode_mulai',
         ]);
 
-        // ✅ PERBAIKI: Handle upload foto
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('perangkat-foto', 'public');
-            $validated['foto'] = $fotoPath;
-        }
+        // Simpan perangkat (tanpa file path dulu)
+        $perangkat = Perangkat::create(array_diff_key($validated, array_flip(['foto'])));
 
-        Perangkat::create($validated);
+        // Jika ada file, simpan ke storage
+        if ($request->hasFile('foto')) {
+            try {
+                // Pastikan direktori 'perangkat-foto' ada di disk public
+                if (!Storage::disk('public')->exists('perangkat-foto')) {
+                    Storage::disk('public')->makeDirectory('perangkat-foto');
+                }
+
+                $fotoPath = $request->file('foto')->store('perangkat-foto', 'public');
+
+                // Simpan path ke kolom foto (pastikan tabel perangkat punya kolom 'foto')
+                $perangkat->foto = $fotoPath;
+                $perangkat->save();
+            } catch (\Throwable $e) {
+                Log::error('Gagal upload foto perangkat: ' . $e->getMessage());
+                // Jika terjadi error I/O, kembalikan dengan pesan jelas
+                return redirect()->route('perangkat.index')
+                    ->with('error', 'Gagal menyimpan foto. Periksa permission folder storage dan coba lagi.');
+            }
+        }
 
         return redirect()
             ->route('perangkat.index')
             ->with('success', 'Data perangkat berhasil ditambahkan.');
     }
 
-    /**
-     * 🔹 Tampilkan form edit perangkat berdasarkan ID
-     */
     public function edit($id)
     {
         $perangkat = Perangkat::findOrFail($id);
         $warga = Warga::all();
-        
-        // Daftar pilihan jabatan
+
         $jabatanOptions = [
             'Kepala Desa',
             'Sekretaris Desa',
@@ -112,9 +113,6 @@ class PerangkatController extends Controller
         ]);
     }
 
-    /**
-     * 🔹 Update data perangkat yang sudah ada
-     */
     public function update(Request $request, $id)
     {
         $perangkat = Perangkat::findOrFail($id);
@@ -129,37 +127,52 @@ class PerangkatController extends Controller
             'periode_selesai' => 'nullable|date|after_or_equal:periode_mulai',
         ]);
 
-        // ✅ PERBAIKI: Handle upload foto - FIX ALL TYPOS
-        if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
-            if ($perangkat->foto && Storage::disk('public')->exists($perangkat->foto)) {
-                Storage::disk('public')->delete($perangkat->foto);
-            }
-            
-            // ✅ PERBAIKI: 'foto' bukan 'foto_perangkat', dan store() bukan storage()
-            $fotoPath = $request->file('foto')->store('perangkat-foto', 'public');
-            $validated['foto'] = $fotoPath;
-        }
+        // Update data selain foto terlebih dahulu
+        $perangkat->update(array_diff_key($validated, array_flip(['foto'])));
 
-        $perangkat->update($validated);
+        // Jika upload foto baru
+        if ($request->hasFile('foto')) {
+            try {
+                // Pastikan direktori ada
+                if (!Storage::disk('public')->exists('perangkat-foto')) {
+                    Storage::disk('public')->makeDirectory('perangkat-foto');
+                }
+
+                // Hapus foto lama bila ada
+                if ($perangkat->foto && Storage::disk('public')->exists($perangkat->foto)) {
+                    Storage::disk('public')->delete($perangkat->foto);
+                }
+
+                // Simpan foto baru
+                $fotoPath = $request->file('foto')->store('perangkat-foto', 'public');
+                $perangkat->foto = $fotoPath;
+                $perangkat->save();
+            } catch (\Throwable $e) {
+                Log::error('Gagal upload/update foto perangkat: ' . $e->getMessage());
+                return redirect()->route('perangkat.edit', $perangkat->id)
+                    ->with('error', 'Gagal menyimpan foto baru. Periksa permission folder storage dan coba lagi.');
+            }
+        }
 
         return redirect()
             ->route('perangkat.index')
             ->with('success', 'Data perangkat berhasil diperbarui.');
     }
 
-    /**
-     * 🔹 Hapus data perangkat
-     */
     public function destroy($id)
     {
         $perangkat = Perangkat::findOrFail($id);
-        
-        // Hapus foto jika ada
-        if ($perangkat->foto && Storage::disk('public')->exists($perangkat->foto)) {
-            Storage::disk('public')->delete($perangkat->foto);
+
+        try {
+            // Hapus foto jika ada
+            if ($perangkat->foto && Storage::disk('public')->exists($perangkat->foto)) {
+                Storage::disk('public')->delete($perangkat->foto);
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Gagal menghapus file foto saat destroy perangkat: ' . $e->getMessage());
+            // tetap lanjutkan hapus data record walau file gagal dihapus
         }
-        
+
         $perangkat->delete();
 
         return redirect()
