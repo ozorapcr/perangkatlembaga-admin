@@ -3,19 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun Baru - Sistem Kami</title>
+    <title>Daftar Akun Baru - Sistem RW</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
     <style>
+        /* SOFT THEME COLORS - SERAGAM DENGAN LOGIN */
         :root {
-            --primary-color: #4361ee;
-            --primary-dark: #3a56d4;
-            --secondary-color: #f8f9fa;
-            --text-color: #333;
-            --text-light: #6c757d;
-            --error-color: #e63946;
-            --success-color: #2a9d8f;
-            --border-color: #dee2e6;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+            --primary: #e7b8e1;
+            --primary-light: #f9e6f6;
+            --primary-dark: #d597cc;
+            --primary-gradient: linear-gradient(135deg, #e7b8e1 0%, #f2d2ef 100%);
+            
+            --secondary: #c8b6ff;
+            --accent: #ffafcc;
+            
+            --light: #fff9fe;
+            --light-gradient: linear-gradient(135deg, #fff9fe 0%, #fef7ff 100%);
+            --dark: #5d576b;
+            --dark-light: #8a8498;
+            --gray: #a8a2b8;
+            --gray-light: #f0e9f2;
+            
+            --success: #9ce0c2;
+            --warning: #ffd6a5;
+            --danger: #ffafaf;
+            --info: #a0c4ff;
+            
+            --border-color: #e7e0eb;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.09);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -26,20 +48,12 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary) 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            animation: gradientShift 8s ease infinite;
-            background-size: 200% 200%;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .register-container {
@@ -47,9 +61,9 @@
             width: 100%;
             max-width: 1000px;
             background-color: white;
-            border-radius: 16px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
             animation: slideUp 0.6s ease-out;
             transform-origin: center;
         }
@@ -61,7 +75,7 @@
 
         .register-left {
             flex: 1;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            background: var(--primary-gradient);
             color: white;
             padding: 50px 40px;
             display: flex;
@@ -71,18 +85,39 @@
             overflow: hidden;
         }
 
+        .register-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(231, 184, 225, 0.9), rgba(213, 151, 204, 0.9));
+            z-index: 1;
+        }
+
+        .register-left-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .register-left h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .register-left p {
             font-size: 1.1rem;
             opacity: 0.9;
             line-height: 1.6;
+            margin-bottom: 30px;
         }
 
-        .features-list { margin-top: 30px; }
+        .features-list { 
+            margin-top: 30px; 
+        }
+        
         .feature-item {
             display: flex;
             align-items: center;
@@ -98,6 +133,11 @@
             align-items: center;
             justify-content: center;
             margin-right: 12px;
+            font-size: 0.9rem;
+        }
+
+        .feature-item span {
+            font-size: 0.95rem;
         }
 
         .register-right {
@@ -111,13 +151,14 @@
         }
 
         .register-header h2 {
-            color: var(--text-color);
+            color: var(--dark);
             font-size: 2rem;
             margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .register-header p {
-            color: var(--text-light);
+            color: var(--dark-light);
             font-size: 0.95rem;
         }
 
@@ -126,12 +167,15 @@
         }
 
         .success-message {
-            background-color: rgba(42, 157, 143, 0.1);
-            color: var(--success-color);
-            border-left: 4px solid var(--success-color);
+            background-color: rgba(156, 224, 194, 0.15);
+            color: #4a8b72;
+            border-left: 4px solid var(--success);
             padding: 12px 15px;
             border-radius: 8px;
             font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .error-container {
@@ -139,9 +183,9 @@
         }
 
         .error-list {
-            background-color: rgba(230, 57, 70, 0.1);
-            color: var(--error-color);
-            border-left: 4px solid var(--error-color);
+            background-color: rgba(255, 175, 175, 0.15);
+            color: #cc6b6b;
+            border-left: 4px solid var(--danger);
             padding: 12px 15px;
             border-radius: 8px;
             font-size: 0.9rem;
@@ -154,8 +198,9 @@
         label {
             display: block;
             margin-bottom: 8px;
-            color: var(--text-color);
+            color: var(--dark);
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .input-group {
@@ -168,13 +213,18 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            background-color: white;
         }
 
         input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(231, 184, 225, 0.15);
+        }
+
+        input::placeholder {
+            color: var(--gray);
         }
 
         .input-icon {
@@ -182,7 +232,7 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-light);
+            color: var(--gray);
         }
 
         .password-toggle {
@@ -193,16 +243,17 @@
             background: none;
             border: none;
             cursor: pointer;
-            color: var(--text-light);
+            color: var(--gray);
+            font-size: 1rem;
         }
 
         .password-toggle:hover {
-            color: var(--primary-color);
+            color: var(--primary);
         }
 
         .password-strength {
             height: 4px;
-            background-color: #e9ecef;
+            background-color: var(--gray-light);
             border-radius: 2px;
             margin-top: 8px;
             overflow: hidden;
@@ -212,68 +263,122 @@
             height: 100%;
             width: 0;
             border-radius: 2px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
-        .strength-weak { background-color: var(--error-color); width: 33%; }
-        .strength-medium { background-color: #ff9f1c; width: 66%; }
-        .strength-strong { background-color: var(--success-color); width: 100%; }
+        .strength-weak { 
+            background-color: var(--danger); 
+            width: 33%; 
+        }
+        .strength-medium { 
+            background-color: var(--warning); 
+            width: 66%; 
+        }
+        .strength-strong { 
+            background-color: var(--success); 
+            width: 100%; 
+        }
 
         .strength-text {
             font-size: 0.8rem;
             margin-top: 4px;
             text-align: right;
+            color: var(--dark-light);
         }
 
         .btn-register {
             width: 100%;
             padding: 14px;
-            background-color: var(--primary-color);
+            background: var(--primary-gradient);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            margin-top: 10px;
         }
 
         .btn-register:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, #d597cc 0%, #e7b8e1 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .login-link {
             text-align: center;
             margin-top: 25px;
-            color: var(--text-light);
+            color: var(--dark-light);
             font-size: 0.95rem;
         }
 
         .login-link a {
-            color: var(--primary-color);
+            color: var(--primary-dark);
             text-decoration: none;
             font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-link a:hover {
+            color: #c284ba;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .register-container {
+                flex-direction: column;
+            }
+            
+            .register-left, .register-right {
+                padding: 40px 30px;
+            }
+            
+            .register-left {
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .register-left, .register-right {
+                padding: 30px 20px;
+            }
+            
+            .register-left h1 {
+                font-size: 1.8rem;
+            }
+            
+            .register-header h2 {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="register-container">
         <div class="register-left">
-            <h1>Bergabunglah Dengan Kami</h1>
-            <p>Daftarkan akun baru untuk mengakses semua fitur eksklusif dan mulai perjalanan Anda bersama kami.</p>
+            <div class="register-left-content">
+                <h1>Bergabunglah Dengan Sistem RW</h1>
+                <p>Daftarkan akun baru untuk mengakses semua fitur dan layanan Sistem RW. Mulai perjalanan Anda bersama kami.</p>
 
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="feature-icon">✓</div>
-                    <span>Akses ke semua fitur premium</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">✓</div>
-                    <span>Pengalaman personalisasi</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">✓</div>
-                    <span>Dukungan pelanggan 24/7</span>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Akses ke semua fitur sistem</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Kelola data perangkat dan lembaga</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Dukungan administrasi RW 24/7</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Laporan dan analisis data</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -287,6 +392,7 @@
             @if(session('success'))
                 <div class="success-container">
                     <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
                         {{ session('success') }}
                     </div>
                 </div>
@@ -295,7 +401,7 @@
             @if ($errors->any())
                 <div class="error-container">
                     <div class="error-list">
-                        <ul>
+                        <ul style="margin: 0; padding-left: 20px;">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
@@ -308,27 +414,35 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="name">Nama Lengkap</label>
+                    <label for="name">
+                        <i class="fas fa-user me-2"></i>Nama Lengkap
+                    </label>
                     <div class="input-group">
                         <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap Anda" required value="{{ old('name') }}">
-                        <span class="input-icon">👤</span>
+                        <span class="input-icon"><i class="fas fa-user"></i></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Alamat Email</label>
+                    <label for="email">
+                        <i class="fas fa-envelope me-2"></i>Alamat Email
+                    </label>
                     <div class="input-group">
                         <input type="email" id="email" name="email" placeholder="nama@contoh.com" required value="{{ old('email') }}">
-                        <span class="input-icon">✉️</span>
+                        <span class="input-icon"><i class="fas fa-envelope"></i></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">
+                        <i class="fas fa-lock me-2"></i>Password
+                    </label>
                     <div class="input-group">
                         <input type="password" id="password" name="password" placeholder="Buat password yang kuat" required>
-                        <button type="button" class="password-toggle" id="togglePassword">👁️</button>
-                        <span class="input-icon">🔒</span>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
                     </div>
                     <div class="password-strength">
                         <div class="strength-meter" id="passwordStrength"></div>
@@ -336,7 +450,9 @@
                     <div class="strength-text" id="passwordText">Kekuatan password</div>
                 </div>
 
-                <button type="submit" class="btn-register">Daftar Sekarang</button>
+                <button type="submit" class="btn-register">
+                    <i class="fas fa-user-plus me-2"></i>Daftar Sekarang
+                </button>
             </form>
 
             <div class="login-link">
@@ -349,9 +465,17 @@
         // Toggle password visibility
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.innerHTML = type === 'password' ? '👁️' : '🔒';
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         });
 
         // Password strength indicator
@@ -377,15 +501,15 @@
             if (strength <= 2) {
                 strengthMeter.classList.add('strength-weak');
                 strengthText.textContent = 'Lemah';
-                strengthText.style.color = 'var(--error-color)';
+                strengthText.style.color = '#cc6b6b';
             } else if (strength <= 4) {
                 strengthMeter.classList.add('strength-medium');
                 strengthText.textContent = 'Sedang';
-                strengthText.style.color = '#ff9f1c';
+                strengthText.style.color = '#e6a145';
             } else {
                 strengthMeter.classList.add('strength-strong');
                 strengthText.textContent = 'Kuat';
-                strengthText.style.color = 'var(--success-color)';
+                strengthText.style.color = '#4a8b72';
             }
         });
     </script>

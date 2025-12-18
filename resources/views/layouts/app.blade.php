@@ -7,36 +7,46 @@
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome 7 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* SOFT THEME COLORS - SERAGAM DENGAN LOGIN */
         :root {
-            --primary: #f068cc;
-            --primary-light: #f9b0e4;
-            --primary-dark: #e83cb0;
-            --primary-gradient: linear-gradient(135deg, #f068cc 0%, #ff6b9d 100%);
-            --secondary: #8a4fff;
-            --accent: #ff6b9d;
-            --light: #fff9fd;
-            --light-gradient: linear-gradient(135deg, #fff9fd 0%, #fef7ff 100%);
-            --dark: #2d3748;
-            --dark-light: #4a5568;
-            --gray: #718096;
-            --gray-light: #e2e8f0;
-            --success: #48bb78;
-            --warning: #ed8936;
-            --danger: #f56565;
-            --info: #4299e1;
+            --primary: #e7b8e1;           /* Soft Pink */
+            --primary-light: #f9e6f6;     /* Very Light Pink */
+            --primary-dark: #d597cc;      /* Medium Pink */
+            --primary-gradient: linear-gradient(135deg, #e7b8e1 0%, #f2d2ef 100%);
+            
+            --secondary: #c8b6ff;         /* Soft Lavender */
+            --secondary-light: #e7e0ff;
+            --accent: #ffafcc;            /* Soft Coral Pink */
+            --accent-light: #ffd6e8;
+            
+            --light: #fff9fe;             /* Soft White with Pink tint */
+            --light-gradient: linear-gradient(135deg, #fff9fe 0%, #fef7ff 100%);
+            --dark: #5d576b;              /* Soft Dark Purple */
+            --dark-light: #8a8498;        /* Medium Gray Purple */
+            --gray: #a8a2b8;              /* Soft Gray */
+            --gray-light: #f0e9f2;        /* Very Light Lavender Gray */
+            --gray-medium: #e7e0eb;
+            
+            /* Soft Status Colors */
+            --success: #9ce0c2;           /* Soft Mint Green */
+            --warning: #ffd6a5;           /* Soft Peach */
+            --danger: #ffafaf;            /* Soft Coral */
+            --info: #a0c4ff;              /* Soft Sky Blue */
+            
+            /* UI Variables */
             --sidebar-width: 280px;
             --sidebar-collapsed: 80px;
             --header-height: 70px;
             --border-radius: 16px;
-            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.1);
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -55,7 +65,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar Modern */
+        /* Modern Sidebar dengan Soft Theme */
         .sidebar {
             position: fixed;
             left: 0;
@@ -90,7 +100,7 @@
             position: relative;
         }
 
-        .sidebar h4 {
+        .sidebar-logo {
             font-weight: 700;
             color: #fff;
             margin: 0;
@@ -102,10 +112,9 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .sidebar .logo-icon {
-            font-size: 2rem;
-            color: #fff;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        .sidebar-logo img {
+            height: 35px;
+            border-radius: 8px;
         }
 
         .sidebar .nav-link {
@@ -169,7 +178,7 @@
             transition: var(--transition);
         }
 
-        /* Modern Header */
+        /* Modern Header dengan Soft Theme */
         .navbar-top {
             background: var(--primary-gradient);
             padding: 0 35px;
@@ -255,7 +264,7 @@
             color: #ffe3f9;
             transform: translateY(-2px);
             background: rgba(255,255,255,0.25);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         /* Main Content */
@@ -278,7 +287,7 @@
             pointer-events: none;
         }
 
-        /* Enhanced Cards */
+        /* Enhanced Cards dengan Soft Theme */
         .content-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: var(--border-radius);
@@ -331,7 +340,7 @@
         .footer {
             text-align: center;
             padding: 20px;
-            color: var(--gray);
+            color: var(--dark-light);
             border-top: 1px solid var(--gray-light);
             background: rgba(255,255,255,0.9);
             font-size: 0.9rem;
@@ -362,7 +371,7 @@
 
         .whatsapp-float:hover {
             transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 15px 35px rgba(231, 184, 225, 0.4);
             animation: none;
         }
 
@@ -371,7 +380,7 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* Enhanced CRUD Buttons */
+        /* Enhanced CRUD Buttons dengan Soft Theme */
         .btn-crud {
             display: inline-flex;
             align-items: center;
@@ -409,36 +418,36 @@
         }
 
         .btn-tambah {
-            background: linear-gradient(135deg, var(--success) 0%, #38a169 100%);
+            background: linear-gradient(135deg, var(--success) 0%, #87d4b5 100%);
             color: #fff;
         }
 
         .btn-edit {
-            background: linear-gradient(135deg, var(--warning) 0%, #dd6b20 100%);
+            background: linear-gradient(135deg, var(--warning) 0%, #ffc985 100%);
             color: #fff;
         }
 
         .btn-hapus {
-            background: linear-gradient(135deg, var(--danger) 0%, #e53e3e 100%);
+            background: linear-gradient(135deg, var(--danger) 0%, #ff9f9f 100%);
             color: #fff;
         }
 
         .btn-simpan {
-            background: linear-gradient(135deg, var(--secondary) 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, #b4a3ff 100%);
             color: #fff;
         }
 
         .btn-kembali {
-            background: linear-gradient(135deg, var(--gray) 0%, #4a5568 100%);
+            background: linear-gradient(135deg, var(--gray) 0%, #c6bed9 100%);
             color: #fff;
         }
 
         .btn-detail {
-            background: linear-gradient(135deg, var(--info) 0%, #3182ce 100%);
+            background: linear-gradient(135deg, var(--info) 0%, #8bb9ff 100%);
             color: #fff;
         }
 
-        /* Enhanced Stats Cards */
+        /* Enhanced Stats Cards dengan Soft Theme */
         .stats-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: var(--border-radius);
@@ -483,10 +492,10 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        .stats-icon.primary { background: rgba(240, 104, 204, 0.15); color: var(--primary); }
-        .stats-icon.success { background: rgba(72, 187, 120, 0.15); color: var(--success); }
-        .stats-icon.warning { background: rgba(237, 137, 54, 0.15); color: var(--warning); }
-        .stats-icon.info { background: rgba(66, 153, 225, 0.15); color: var(--info); }
+        .stats-icon.primary { background: rgba(231, 184, 225, 0.15); color: var(--primary); }
+        .stats-icon.success { background: rgba(156, 224, 194, 0.15); color: var(--success); }
+        .stats-icon.warning { background: rgba(255, 214, 165, 0.15); color: var(--warning); }
+        .stats-icon.info { background: rgba(160, 196, 255, 0.15); color: var(--info); }
 
         .stats-number {
             font-size: 2.2rem;
@@ -497,12 +506,12 @@
         }
 
         .stats-label {
-            color: var(--gray);
+            color: var(--dark-light);
             font-size: 0.95rem;
             font-weight: 500;
         }
 
-        /* Enhanced Table Styling */
+        /* Enhanced Table Styling dengan Soft Theme */
         .table-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: var(--border-radius);
@@ -535,7 +544,7 @@
         }
 
         .table tbody tr:hover {
-            background: rgba(240, 104, 204, 0.08);
+            background: rgba(231, 184, 225, 0.08);
             transform: translateX(5px);
         }
 
@@ -545,7 +554,7 @@
                 --sidebar-width: 80px;
             }
 
-            .sidebar h4 span,
+            .sidebar-logo span,
             .sidebar .nav-link span {
                 display: none;
             }
@@ -591,6 +600,14 @@
             .logout-btn span {
                 display: none;
             }
+            
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                bottom: 20px;
+                right: 20px;
+            }
         }
 
         /* Animations */
@@ -613,7 +630,7 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 4px solid rgba(240, 104, 204, 0.3);
+            border: 4px solid rgba(231, 184, 225, 0.3);
             border-left: 4px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -629,7 +646,7 @@
         .empty-state {
             text-align: center;
             padding: 60px 30px;
-            color: var(--gray);
+            color: var(--dark-light);
         }
 
         .empty-state i {
@@ -645,7 +662,7 @@
             font-weight: 600;
         }
 
-        /* Custom Scrollbar */
+        /* Custom Scrollbar dengan Soft Theme */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -665,84 +682,98 @@
     </style>
 </head>
 <body>
-
-    {{-- Sidebar --}}
+    
+    <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h4><i class="fa-solid fa-house-user logo-icon"></i> <span>Sistem RW</span></h4>
+            <div class="sidebar-logo">
+                <img src="{{ asset('assets/img/LogoRw.jpg') }}" alt="Logo Sistem RW">
+                <span>Sistem RW</span>
+            </div>
         </div>
 
-        <a href="{{ route('dashboard') }}"
-           class="nav-link {{ (isset($page) && $page == 'dashboard') ? 'active' : '' }}">
-            <i class="fa-solid fa-chart-line"></i> <span>Dashboard</span>
-        </a>
+        <nav class="nav flex-column">
+            <a href="{{ route('dashboard') }}" 
+               class="nav-link {{ isset($page) && $page == 'dashboard' ? 'active' : '' }}">
+                <i class="fas fa-chart-line"></i> 
+                <span>Dashboard</span>
+            </a>
 
-        <a href="{{ route('perangkat.index') }}"
-           class="nav-link {{ (isset($page) && $page == 'perangkat') ? 'active' : '' }}">
-            <i class="fa-solid fa-users-gear"></i> <span>Perangkat Desa</span>
-        </a>
+            <a href="{{ route('perangkat.index') }}"
+               class="nav-link {{ isset($page) && $page == 'perangkat' ? 'active' : '' }}">
+                <i class="fas fa-users-gear"></i> 
+                <span>Perangkat Desa</span>
+            </a>
 
-        <a href="{{ route('lembaga.index') }}"
-           class="nav-link {{ (isset($page) && $page == 'lembaga') ? 'active' : '' }}">
-            <i class="fa-solid fa-users-gear"></i> <span>Lembaga Desa</span>
-        </a>
+            <a href="{{ route('lembaga.index') }}" 
+               class="nav-link {{ isset($page) && $page == 'lembaga' ? 'active' : '' }}">
+                <i class="fas fa-landmark"></i> 
+                <span>Lembaga Desa</span>
+            </a>
 
-        <a href="{{ route('jabatan.index') }}"
-           class="nav-link {{ (isset($page) && $page == 'jabatan') ? 'active' : '' }}">
-            <i class="fa-solid fa-users-gear"></i> <span>Jabatan Desa</span>
-        </a>
+            <a href="{{ route('jabatan.index') }}" 
+               class="nav-link {{ isset($page) && $page == 'jabatan' ? 'active' : '' }}">
+                <i class="fas fa-id-card"></i> 
+                <span>Jabatan Desa</span>
+            </a>
 
-        <a href="{{ route('rw.index') }}"
-           class="nav-link {{ (isset($page) && $page == 'rw') ? 'active' : '' }}">
-            <i class="fa-solid fa-user-tie"></i> <span>Data RW</span>
-        </a>
+            <a href="{{ route('rw.index') }}" 
+               class="nav-link {{ isset($page) && $page == 'rw' ? 'active' : '' }}">
+                <i class="fas fa-user-tie"></i> 
+                <span>Data RW</span>
+            </a>
 
-         <a href="{{ route('rt.index') }}"
-           class="nav-link {{ (isset($page) && $page == 'rw') ? 'active' : '' }}">
-            <i class="fa-solid fa-user-tie"></i> <span>Data RT</span>
-        </a>
+            <a href="{{ route('rt.index') }}" 
+               class="nav-link {{ isset($page) && $page == 'rt' ? 'active' : '' }}">
+                <i class="fas fa-user-tie"></i> 
+                <span>Data RT</span>
+            </a>
 
-        <a href="{{ route('warga.index') }}"
-           class="nav-link {{ (isset($page) && $page == 'warga') ? 'active' : '' }}">
-            <i class="fa-solid fa-people-roof"></i> <span>Data Warga</span>
-        </a>
-
-        
-
+            <a href="{{ route('warga.index') }}" 
+               class="nav-link {{ isset($page) && $page == 'warga' ? 'active' : '' }}">
+                <i class="fas fa-people-roof"></i> 
+                <span>Data Warga</span>
+            </a>
+        </nav>
     </div>
 
-    {{-- Konten utama --}}
+    <!-- Main Content -->
     <div class="content">
-        {{-- Navbar atas --}}
+        <!-- Top Navigation Bar -->
         <div class="navbar-top">
-            <h5><i class="fa-solid fa-table-columns"></i> <span>{{ ucfirst($page ?? 'Dashboard') }}</span></h5>
+            <h5>
+                <i class="fas fa-table-columns"></i> 
+                <span>{{ ucfirst($page ?? 'Dashboard') }}</span>
+            </h5>
 
             <div class="navbar-icons">
                 <div style="position: relative;">
-                    <i class="fa-solid fa-bell" title="Notifikasi"></i>
+                    <i class="fas fa-bell" title="Notifikasi"></i>
                     <span class="notification-badge">3</span>
                 </div>
-                <i class="fa-solid fa-user-circle" title="Profil"></i>
+                
+                <i class="fas fa-user-circle" title="Profil" id="profileBtn"></i>
 
+                <!-- Logout Form -->
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
                 <button class="logout-btn" title="Logout"
                         onclick="if(confirm('Yakin ingin logout?')) document.getElementById('logout-form').submit();">
-                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <i class="fas fa-right-from-bracket"></i>
                     <span class="d-none d-md-inline">Logout</span>
                 </button>
             </div>
         </div>
 
-        {{-- Isi halaman --}}
+        <!-- Page Content -->
         <div class="main-content">
             @yield('content')
         </div>
 
-        {{-- Footer --}}
+        <!-- Footer -->
         <div class="footer">
-            <small>© 2025 Sistem RW - All Rights Reserved</small>
+            <small>© 2025 Sistem RW - Lembaga Pemberdayaan Masyarakat. All Rights Reserved</small>
         </div>
     </div>
 
@@ -751,7 +782,7 @@
        class="whatsapp-float"
        target="_blank"
        title="Chat via WhatsApp">
-       <i class="fa-brands fa-whatsapp"></i>
+       <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Bootstrap JS -->
@@ -760,6 +791,7 @@
     <script>
         // Enhanced animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Fade in animation for elements
             const fadeElements = document.querySelectorAll('.fade-in');
 
             const observerOptions = {
@@ -784,7 +816,7 @@
                 fadeInObserver.observe(element);
             });
 
-            // Add ripple effect to buttons
+            // Add ripple effect to CRUD buttons
             document.querySelectorAll('.btn-crud').forEach(button => {
                 button.addEventListener('click', function(e) {
                     const ripple = document.createElement('span');
@@ -803,6 +835,7 @@
                         height: ${size}px;
                         left: ${x}px;
                         top: ${y}px;
+                        z-index: 1;
                     `;
 
                     this.appendChild(ripple);
@@ -811,6 +844,19 @@
                         ripple.remove();
                     }, 600);
                 });
+            });
+
+            // Profile button click handler
+            document.getElementById('profileBtn')?.addEventListener('click', function() {
+                alert('Menu profil akan segera tersedia!');
+            });
+
+            // Active link highlighting
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
             });
         });
 
@@ -825,6 +871,43 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Sidebar collapse on mobile
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const content = document.querySelector('.content');
+            
+            if (window.innerWidth <= 1200) {
+                const isCollapsed = sidebar.style.width === '80px' || getComputedStyle(sidebar).width === '80px';
+                
+                if (isCollapsed) {
+                    sidebar.style.width = '280px';
+                    content.style.marginLeft = '280px';
+                } else {
+                    sidebar.style.width = '80px';
+                    content.style.marginLeft = '80px';
+                }
+            }
+        }
+
+        // Auto-collapse sidebar on mobile
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 1200) {
+                document.querySelector('.sidebar').style.width = '80px';
+                document.querySelector('.content').style.marginLeft = '80px';
+            } else {
+                document.querySelector('.sidebar').style.width = '280px';
+                document.querySelector('.content').style.marginLeft = '280px';
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth <= 1200) {
+                document.querySelector('.sidebar').style.width = '80px';
+                document.querySelector('.content').style.marginLeft = '80px';
+            }
+        });
     </script>
 </body>
 </html>

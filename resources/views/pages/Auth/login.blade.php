@@ -11,13 +11,34 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     
     <style>
+        /* SOFT THEME COLORS - SERAGAM SEMUA HALAMAN */
         :root {
-            --primary-color: #3f51b5;
-            --primary-dark: #303f9f;
-            --gray-light: #f5f5f5;
-            --gray-medium: #e0e0e0;
-            --gray-dark: #757575;
-            --text-color: #333333;
+            --primary: #e7b8e1;           /* Soft Pink */
+            --primary-light: #f9e6f6;     /* Very Light Pink */
+            --primary-dark: #d597cc;      /* Medium Pink */
+            --primary-gradient: linear-gradient(135deg, #e7b8e1 0%, #f2d2ef 100%);
+            
+            --secondary: #c8b6ff;         /* Soft Lavender */
+            --accent: #ffafcc;            /* Soft Coral Pink */
+            
+            --light: #fff9fe;             /* Soft White */
+            --light-gradient: linear-gradient(135deg, #fff9fe 0%, #fef7ff 100%);
+            --dark: #5d576b;              /* Soft Dark Purple */
+            --dark-light: #8a8498;        /* Medium Gray Purple */
+            --gray: #a8a2b8;              /* Soft Gray */
+            --gray-light: #f0e9f2;        /* Very Light Lavender Gray */
+            --gray-medium: #e7e0eb;
+            
+            --success: #9ce0c2;           /* Soft Mint Green */
+            --warning: #ffd6a5;           /* Soft Peach */
+            --danger: #ffafaf;            /* Soft Coral */
+            --info: #a0c4ff;              /* Soft Sky Blue */
+            
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
         
         * {
@@ -28,8 +49,8 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: var(--text-color);
+            background: var(--light-gradient);
+            color: var(--dark);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -44,9 +65,9 @@
         
         .login-card {
             background: white;
-            border-radius: 12px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-lg);
             display: flex;
             height: 600px;
         }
@@ -54,7 +75,7 @@
         /* Bagian Kiri - Ilustrasi */
         .login-left {
             flex: 1;
-            background-color: var(--primary-color);
+            background: var(--primary-gradient);
             color: white;
             padding: 50px 40px;
             display: flex;
@@ -70,7 +91,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(63, 81, 181, 0.9), rgba(48, 63, 159, 0.9));
+            background: linear-gradient(135deg, rgba(231, 184, 225, 0.9), rgba(213, 151, 204, 0.9));
             z-index: 1;
         }
         
@@ -90,7 +111,7 @@
             padding: 20px;
             margin: 0 auto 25px;
             max-width: 250px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-md);
             border: 3px solid rgba(255, 255, 255, 0.3);
             display: flex;
             align-items: center;
@@ -107,7 +128,7 @@
         
         .logo-fallback {
             text-align: center;
-            color: #2c3e50;
+            color: var(--dark);
             font-weight: bold;
             font-size: 36px;
             padding: 10px;
@@ -135,7 +156,7 @@
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .login-left p {
@@ -148,7 +169,7 @@
         .illustration {
             max-width: 300px;
             margin: 0 auto;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
         }
         
         /* Bagian Kanan - Form Login */
@@ -167,7 +188,7 @@
         .login-header h2 {
             font-size: 24px;
             font-weight: 700;
-            color: var(--text-color);
+            color: var(--dark);
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -175,7 +196,7 @@
         }
         
         .login-header p {
-            color: var(--gray-dark);
+            color: var(--dark-light);
             font-size: 15px;
         }
         
@@ -188,7 +209,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: var(--text-color);
+            color: var(--dark);
             font-size: 14px;
         }
         
@@ -201,7 +222,7 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--gray-dark);
+            color: var(--gray);
             font-size: 18px;
         }
         
@@ -211,14 +232,14 @@
             border: 1px solid var(--gray-medium);
             border-radius: 8px;
             font-size: 16px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             background-color: white;
         }
         
         .form-control:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(231, 184, 225, 0.1);
         }
         
         /* Password Input */
@@ -233,7 +254,7 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: var(--gray-dark);
+            color: var(--gray);
             cursor: pointer;
             font-size: 18px;
         }
@@ -252,9 +273,14 @@
             cursor: pointer;
         }
         
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
         .form-check-label {
             font-size: 14px;
-            color: var(--text-color);
+            color: var(--dark);
             cursor: pointer;
         }
         
@@ -265,14 +291,14 @@
         }
         
         .forgot-password a {
-            color: var(--primary-color);
+            color: var(--primary-dark);
             text-decoration: none;
             font-size: 14px;
-            transition: color 0.3s ease;
+            transition: var(--transition);
         }
         
         .forgot-password a:hover {
-            color: var(--primary-dark);
+            color: #c284ba;
             text-decoration: underline;
         }
         
@@ -280,19 +306,21 @@
         .btn-login {
             width: 100%;
             padding: 14px;
-            background-color: var(--primary-color);
+            background: var(--primary-gradient);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: var(--transition);
             margin-bottom: 25px;
         }
         
         .btn-login:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, #d597cc 0%, #e7b8e1 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         
         /* Register Link */
@@ -302,19 +330,19 @@
         }
         
         .register-link p {
-            color: var(--gray-dark);
+            color: var(--dark-light);
             font-size: 14px;
         }
         
         .register-link a {
-            color: var(--primary-color);
+            color: var(--primary-dark);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: var(--transition);
         }
         
         .register-link a:hover {
-            color: var(--primary-dark);
+            color: #c284ba;
             text-decoration: underline;
         }
         
@@ -323,7 +351,7 @@
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid var(--gray-medium);
-            color: var(--gray-dark);
+            color: var(--dark-light);
             font-size: 13px;
         }
         
@@ -340,15 +368,15 @@
         }
         
         .alert-success {
-            background-color: rgba(76, 175, 80, 0.1);
-            color: #2e7d32;
-            border-color: rgba(76, 175, 80, 0.2);
+            background-color: rgba(156, 224, 194, 0.15);
+            color: #4a8b72;
+            border-color: rgba(156, 224, 194, 0.2);
         }
         
         .alert-danger {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: #d32f2f;
-            border-color: rgba(244, 67, 54, 0.2);
+            background-color: rgba(255, 175, 175, 0.15);
+            color: #cc6b6b;
+            border-color: rgba(255, 175, 175, 0.2);
         }
         
         /* Responsive Design */
@@ -408,8 +436,7 @@
                     <div class="logo-container">
                         <!-- Logo dari file gambar -->
                         <div class="logo-wrapper">
-                            <!-- Gambar Logo dari public/images/LogoRw.jpg -->
-                            <img src="{{ asset('images/LogoRw.jpg') }}" 
+                            <img src="{{ asset('assets/img/LogoRw.jpg') }}" 
                                  alt="Logo LPM - Sistem RW" 
                                  class="logo-img"
                                  id="logoImage"
@@ -584,32 +611,8 @@
             if (logoImg && logoFallback) {
                 logoImg.style.display = 'none';
                 logoFallback.style.display = 'block';
-                
-                // Debug info
-                console.error('Logo image not found at:', logoImg.src);
-                console.info('Showing fallback text instead.');
             }
         }
-        
-        // Check if logo image exists on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const logoImg = document.getElementById('logoImage');
-            if (logoImg) {
-                // Test if image loads
-                const testImage = new Image();
-                testImage.onload = function() {
-                    console.log('✓ Logo image loaded successfully:', logoImg.src);
-                };
-                testImage.onerror = function() {
-                    console.log('✗ Logo image not found');
-                    handleLogoError();
-                };
-                testImage.src = logoImg.src;
-                
-                // Also add direct error listener
-                logoImg.addEventListener('error', handleLogoError);
-            }
-        });
         
         // Auto-hide alerts after 5 seconds
         document.addEventListener('DOMContentLoaded', function() {
@@ -625,37 +628,6 @@
                     }, 500);
                 }, 5000);
             });
-        });
-        
-        // Remember email from localStorage if "Remember me" was checked
-        document.addEventListener('DOMContentLoaded', function() {
-            const rememberCheckbox = document.getElementById('remember');
-            const emailInput = document.getElementById('email');
-            
-            if (rememberCheckbox && emailInput) {
-                // Check if email is saved in localStorage
-                const savedEmail = localStorage.getItem('rememberedEmail');
-                if (savedEmail) {
-                    emailInput.value = savedEmail;
-                    rememberCheckbox.checked = true;
-                }
-                
-                // Save email to localStorage when checkbox is checked
-                rememberCheckbox.addEventListener('change', function() {
-                    if (this.checked && emailInput.value) {
-                        localStorage.setItem('rememberedEmail', emailInput.value);
-                    } else {
-                        localStorage.removeItem('rememberedEmail');
-                    }
-                });
-                
-                // Auto-save email when typing if checkbox is checked
-                emailInput.addEventListener('input', function() {
-                    if (rememberCheckbox.checked) {
-                        localStorage.setItem('rememberedEmail', this.value);
-                    }
-                });
-            }
         });
     </script>
 </body>
