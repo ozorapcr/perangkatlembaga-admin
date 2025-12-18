@@ -11,6 +11,7 @@
     <p class="text-secondary fw-bold">Master Data</p>
     <a href="#"><i class="fa-solid fa-users"></i> User</a>
     <a href="{{ route('warga.index') }}"><i class="fa-solid fa-id-card"></i> Warga</a>
+    
 
     <hr>
     <a href="{{ route('logout') }}" class="text-danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>

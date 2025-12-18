@@ -682,15 +682,33 @@
             <i class="fa-solid fa-users-gear"></i> <span>Perangkat Desa</span>
         </a>
 
+        <a href="{{ route('lembaga.index') }}"
+           class="nav-link {{ (isset($page) && $page == 'lembaga') ? 'active' : '' }}">
+            <i class="fa-solid fa-users-gear"></i> <span>Lembaga Desa</span>
+        </a>
+
+        <a href="{{ route('jabatan.index') }}"
+           class="nav-link {{ (isset($page) && $page == 'jabatan') ? 'active' : '' }}">
+            <i class="fa-solid fa-users-gear"></i> <span>Jabatan Desa</span>
+        </a>
+
         <a href="{{ route('rw.index') }}"
            class="nav-link {{ (isset($page) && $page == 'rw') ? 'active' : '' }}">
             <i class="fa-solid fa-user-tie"></i> <span>Data RW</span>
+        </a>
+
+         <a href="{{ route('rt.index') }}"
+           class="nav-link {{ (isset($page) && $page == 'rw') ? 'active' : '' }}">
+            <i class="fa-solid fa-user-tie"></i> <span>Data RT</span>
         </a>
 
         <a href="{{ route('warga.index') }}"
            class="nav-link {{ (isset($page) && $page == 'warga') ? 'active' : '' }}">
             <i class="fa-solid fa-people-roof"></i> <span>Data Warga</span>
         </a>
+
+        
+
     </div>
 
     {{-- Konten utama --}}
