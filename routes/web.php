@@ -11,7 +11,6 @@ use App\Http\Controllers\LembagaDesaController;
 use App\Http\Controllers\LembagaController;
 use App\Http\Controllers\JabatanLembagaController;
 use App\Http\Controllers\AnggotaLembagaController;
-use App\Http\Controllers\DeveloperController; // <-- TAMBAHKAN INI
 
 // Halaman login & register
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -111,4 +110,19 @@ Route::delete('/anggota-lembaga/{anggota_lembaga}', [AnggotaLembagaController::c
 // ===========================================
 
 // Tampilkan daftar warga
-Route::get('/warga', [WargaController::class, 'index'])->
+Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
+
+// Tampilkan form tambah warga
+Route::get('/warga/create', [WargaController::class, 'create'])->name('warga.create');
+
+// Simpan data baru ke database
+Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
+
+// Tampilkan form edit warga tertentu
+Route::get('/warga/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit');
+
+// Update data warga di database
+Route::put('/warga/{id}', [WargaController::class, 'update'])->name('warga.update');
+
+// Hapus data warga
+Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
