@@ -6,9 +6,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h2 class="card-title">Daftar RT</h2>
+                    <h2 class="card-title">Daftar RW</h2>
                     <a href="{{ route('rt.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Tambah RT
+                        <i class="fas fa-plus"></i> Tambah RW
                     </a>
                 </div>
                 <div class="card-body">

@@ -10,6 +10,8 @@ use App\Http\Controllers\RtController;
 use App\Http\Controllers\LembagaDesaController;
 use App\Http\Controllers\LembagaController;
 use App\Http\Controllers\JabatanLembagaController;
+use App\Http\Controllers\AnggotaLembagaController;
+use App\Http\Controllers\DeveloperController; // <-- TAMBAHKAN INI
 
 // Halaman login & register
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -25,21 +27,19 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-
+// ===========================================
+// ROUTES CRUD PERANGKAT
+// ===========================================
 Route::get('/perangkat', [PerangkatController::class, 'index'])->name('perangkat.index');
-// Form tambah perangkat
 Route::get('/perangkat/create', [PerangkatController::class, 'create'])->name('perangkat.create');
-// Simpan perangkat baru
 Route::post('/perangkat', [PerangkatController::class, 'store'])->name('perangkat.store');
-// Form edit perangkat
 Route::get('/perangkat/{perangkat}/edit', [PerangkatController::class, 'edit'])->name('perangkat.edit');
-// Update perangkat
 Route::put('/perangkat/{perangkat}', [PerangkatController::class, 'update'])->name('perangkat.update');
-// Hapus perangkat
 Route::delete('/perangkat/{perangkat}', [PerangkatController::class, 'destroy'])->name('perangkat.destroy');
 
-
-
+// ===========================================
+// ROUTES CRUD RW
+// ===========================================
 Route::get('/rw', [RwController::class, 'index'])->name('rw.index');
 Route::get('/rw/create', [RwController::class, 'create'])->name('rw.create');
 Route::post('/rw', [RwController::class, 'store'])->name('rw.store');
@@ -49,78 +49,26 @@ Route::delete('/rw/{rw}', [RwController::class, 'destroy'])->name('rw.destroy');
 Route::get('/rw/{rw}', [RwController::class, 'show'])->name('rw.show');
 
 // ===========================================
-// ROUTES CRUD RT (Konsisten dengan pola RW)
+// ROUTES CRUD RT
 // ===========================================
-
-// Tampilkan daftar RT
 Route::get('/rt', [RtController::class, 'index'])->name('rt.index');
-
-// Tampilkan form tambah RT
 Route::get('/rt/create', [RtController::class, 'create'])->name('rt.create');
-
-// Simpan data RT baru ke database
 Route::post('/rt', [RtController::class, 'store'])->name('rt.store');
-
-// Tampilkan detail RT tertentu
 Route::get('/rt/{rt}', [RtController::class, 'show'])->name('rt.show');
-
-// Tampilkan form edit RT tertentu
 Route::get('/rt/{rt}/edit', [RtController::class, 'edit'])->name('rt.edit');
-
-// Update data RT di database
 Route::put('/rt/{rt}', [RtController::class, 'update'])->name('rt.update');
-
-// Hapus data RT
 Route::delete('/rt/{rt}', [RtController::class, 'destroy'])->name('rt.destroy');
 
 // ===========================================
-// ROUTES CRUD LEMBAGA DESA (Konsisten dengan pola RW & RT)
+// ROUTES CRUD LEMBAGA DESA
 // ===========================================
-
-// Tampilkan daftar Lembaga Desa
 Route::get('/lembaga', [LembagaController::class, 'index'])->name('lembaga.index');
-
-// Tampilkan form tambah Lembaga Desa
 Route::get('/lembaga/create', [LembagaController::class, 'create'])->name('lembaga.create');
-
-// Simpan data Lembaga Desa baru ke database
 Route::post('/lembaga', [LembagaController::class, 'store'])->name('lembaga.store');
-
-// Tampilkan detail Lembaga Desa tertentu
 Route::get('/lembaga/{lembaga}', [LembagaController::class, 'show'])->name('lembaga.show');
-
-// Tampilkan form edit Lembaga Desa tertentu
 Route::get('/lembaga/{lembaga}/edit', [LembagaController::class, 'edit'])->name('lembaga.edit');
-
-// Update data Lembaga Desa di database
 Route::put('/lembaga/{lembaga}', [LembagaController::class, 'update'])->name('lembaga.update');
-
-// Hapus data Lembaga Desa
 Route::delete('/lembaga/{lembaga}', [LembagaController::class, 'destroy'])->name('lembaga.destroy');
-
-
-
-// ===========================================
-// ROUTES CRUD WARGA (Versi Manual Lengkap)
-// ===========================================
-
-// Tampilkan daftar warga
-Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
-
-// Tampilkan form tambah warga
-Route::get('/warga/create', [WargaController::class, 'create'])->name('warga.create');
-
-// Simpan data baru ke database
-Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
-
-// Tampilkan form edit warga tertentu
-Route::get('/warga/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit');
-
-// Update data warga di database
-Route::put('/warga/{id}', [WargaController::class, 'update'])->name('warga.update');
-
-// Hapus data warga
-Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
 // ===========================================
 // ROUTES CRUD JABATAN LEMBAGA (Konsisten dengan pola Lembaga)
@@ -146,3 +94,21 @@ Route::put('/jabatan/{jabatan_lembaga}', [JabatanLembagaController::class, 'upda
 
 // Hapus data Jabatan Lembaga
 Route::delete('/jabatan/{jabatan_lembaga}', [JabatanLembagaController::class, 'destroy'])->name('jabatan.destroy');
+
+// ===========================================
+// ROUTES CRUD ANGGOTA LEMBAGA
+// ===========================================
+Route::get('/anggota-lembaga', [AnggotaLembagaController::class, 'index'])->name('anggota-lembaga.index');
+Route::get('/anggota-lembaga/create', [AnggotaLembagaController::class, 'create'])->name('anggota-lembaga.create');
+Route::post('/anggota-lembaga', [AnggotaLembagaController::class, 'store'])->name('anggota-lembaga.store');
+Route::get('/anggota-lembaga/{anggota_lembaga}', [AnggotaLembagaController::class, 'show'])->name('anggota-lembaga.show');
+Route::get('/anggota-lembaga/{anggota_lembaga}/edit', [AnggotaLembagaController::class, 'edit'])->name('anggota-lembaga.edit');
+Route::put('/anggota-lembaga/{anggota_lembaga}', [AnggotaLembagaController::class, 'update'])->name('anggota-lembaga.update');
+Route::delete('/anggota-lembaga/{anggota_lembaga}', [AnggotaLembagaController::class, 'destroy'])->name('anggota-lembaga.destroy');
+
+// ===========================================
+// ROUTES CRUD WARGA (Versi Manual Lengkap)
+// ===========================================
+
+// Tampilkan daftar warga
+Route::get('/warga', [WargaController::class, 'index'])->

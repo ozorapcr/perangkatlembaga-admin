@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* SOFT THEME COLORS - SERAGAM DENGAN LOGIN */
+        /* SOFT THEME COLORS - SERAGAM SEMUA HALAMAN */
         :root {
             --primary: #e7b8e1;           /* Soft Pink */
             --primary-light: #f9e6f6;     /* Very Light Pink */
@@ -21,11 +21,11 @@
             --primary-gradient: linear-gradient(135deg, #e7b8e1 0%, #f2d2ef 100%);
             
             --secondary: #c8b6ff;         /* Soft Lavender */
-            --secondary-light: #e7e0ff;
+            --secondary-light: #f0ebff;   /* Light Lavender */
             --accent: #ffafcc;            /* Soft Coral Pink */
-            --accent-light: #ffd6e8;
+            --accent-light: #ffe3f1;      /* Light Coral Pink */
             
-            --light: #fff9fe;             /* Soft White with Pink tint */
+            --light: #fff9fe;             /* Soft White */
             --light-gradient: linear-gradient(135deg, #fff9fe 0%, #fef7ff 100%);
             --dark: #5d576b;              /* Soft Dark Purple */
             --dark-light: #8a8498;        /* Medium Gray Purple */
@@ -33,7 +33,6 @@
             --gray-light: #f0e9f2;        /* Very Light Lavender Gray */
             --gray-medium: #e7e0eb;
             
-            /* Soft Status Colors */
             --success: #9ce0c2;           /* Soft Mint Green */
             --warning: #ffd6a5;           /* Soft Peach */
             --danger: #ffafaf;            /* Soft Coral */
@@ -43,11 +42,11 @@
             --sidebar-width: 280px;
             --sidebar-collapsed: 80px;
             --header-height: 70px;
-            --border-radius: 16px;
+            --border-radius: 12px;
             --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.1);
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -73,12 +72,13 @@
             height: 100vh;
             width: var(--sidebar-width);
             background: var(--primary-gradient);
-            color: #fff;
+            color: var(--dark);
             padding: 25px 0;
             box-shadow: var(--shadow-lg);
             z-index: 1000;
             transition: var(--transition);
             overflow: hidden;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .sidebar::before {
@@ -95,21 +95,20 @@
         .sidebar-header {
             padding: 0 25px 30px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             margin-bottom: 25px;
             position: relative;
         }
 
         .sidebar-logo {
             font-weight: 700;
-            color: #fff;
+            color: var(--dark);
             margin: 0;
             font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .sidebar-logo img {
@@ -118,7 +117,7 @@
         }
 
         .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.85);
+            color: var(--dark-light);
             font-weight: 500;
             padding: 16px 25px;
             display: flex;
@@ -140,7 +139,7 @@
             top: 0;
             height: 100%;
             width: 0;
-            background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(90deg, rgba(231, 184, 225, 0.1) 0%, rgba(231, 184, 225, 0) 100%);
             transition: var(--transition);
         }
 
@@ -151,10 +150,10 @@
 
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
-            color: #fff;
+            color: var(--dark);
             transform: translateX(8px);
-            border-left-color: rgba(255,255,255,0.6);
-            background: rgba(255,255,255,0.1);
+            border-left-color: var(--primary);
+            background: rgba(231, 184, 225, 0.1);
         }
 
         .sidebar .nav-link i {
@@ -162,10 +161,12 @@
             width: 24px;
             text-align: center;
             transition: var(--transition);
+            color: var(--dark-light);
         }
 
         .sidebar .nav-link:hover i,
         .sidebar .nav-link.active i {
+            color: var(--primary-dark);
             transform: scale(1.1);
         }
 
@@ -180,10 +181,10 @@
 
         /* Modern Header dengan Soft Theme */
         .navbar-top {
-            background: var(--primary-gradient);
+            background: var(--light-gradient);
             padding: 0 35px;
             height: var(--header-height);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid var(--gray-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -191,18 +192,16 @@
             position: sticky;
             top: 0;
             z-index: 999;
-            backdrop-filter: blur(10px);
         }
 
         .navbar-top h5 {
             margin: 0;
-            color: #fff;
+            color: var(--dark);
             display: flex;
             align-items: center;
             gap: 12px;
             font-weight: 600;
             font-size: 1.4rem;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .navbar-icons {
@@ -212,7 +211,7 @@
         }
 
         .navbar-icons i {
-            color: #fff;
+            color: var(--dark-light);
             font-size: 1.3rem;
             cursor: pointer;
             transition: var(--transition);
@@ -222,9 +221,8 @@
         }
 
         .navbar-icons i:hover {
-            color: #ffe3f9;
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.1);
+            color: var(--primary-dark);
+            background: var(--primary-light);
         }
 
         .notification-badge {
@@ -245,9 +243,9 @@
         }
 
         .logout-btn {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
+            background: var(--primary-light);
+            border: 1px solid var(--primary);
+            color: var(--dark);
             cursor: pointer;
             font-size: 1rem;
             transition: var(--transition);
@@ -257,14 +255,13 @@
             padding: 10px 18px;
             border-radius: 12px;
             font-weight: 500;
-            backdrop-filter: blur(10px);
         }
 
         .logout-btn:hover {
-            color: #ffe3f9;
+            color: var(--dark);
             transform: translateY(-2px);
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--primary);
+            box-shadow: var(--shadow-md);
         }
 
         /* Main Content */
@@ -283,7 +280,7 @@
             width: 300px;
             height: 300px;
             background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
-            opacity: 0.05;
+            opacity: 0.3;
             pointer-events: none;
         }
 
@@ -294,11 +291,11 @@
             box-shadow: var(--shadow-md);
             padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid var(--gray-light);
             transition: var(--transition);
-            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .content-card::before {
@@ -330,10 +327,6 @@
             color: var(--dark);
             margin: 0;
             font-size: 1.8rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         /* Footer */
@@ -342,9 +335,8 @@
             padding: 20px;
             color: var(--dark-light);
             border-top: 1px solid var(--gray-light);
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             font-size: 0.9rem;
-            backdrop-filter: blur(10px);
         }
 
         /* Enhanced Floating WhatsApp Button */
@@ -418,33 +410,33 @@
         }
 
         .btn-tambah {
-            background: linear-gradient(135deg, var(--success) 0%, #87d4b5 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--success) 0%, #b4e6d1 100%);
+            color: var(--dark);
         }
 
         .btn-edit {
-            background: linear-gradient(135deg, var(--warning) 0%, #ffc985 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--warning) 0%, #ffe0b8 100%);
+            color: var(--dark);
         }
 
         .btn-hapus {
-            background: linear-gradient(135deg, var(--danger) 0%, #ff9f9f 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--danger) 0%, #ffc9c9 100%);
+            color: var(--dark);
         }
 
         .btn-simpan {
-            background: linear-gradient(135deg, var(--secondary) 0%, #b4a3ff 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ddd2ff 100%);
+            color: var(--dark);
         }
 
         .btn-kembali {
-            background: linear-gradient(135deg, var(--gray) 0%, #c6bed9 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--gray) 0%, #d9d3e3 100%);
+            color: var(--dark);
         }
 
         .btn-detail {
-            background: linear-gradient(135deg, var(--info) 0%, #8bb9ff 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--info) 0%, #c2d7ff 100%);
+            color: var(--dark);
         }
 
         /* Enhanced Stats Cards dengan Soft Theme */
@@ -454,11 +446,10 @@
             padding: 25px;
             box-shadow: var(--shadow-md);
             transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid var(--gray-light);
             height: 100%;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
         }
 
         .stats-card::before {
@@ -492,7 +483,7 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        .stats-icon.primary { background: rgba(231, 184, 225, 0.15); color: var(--primary); }
+        .stats-icon.primary { background: rgba(231, 184, 225, 0.15); color: var(--primary-dark); }
         .stats-icon.success { background: rgba(156, 224, 194, 0.15); color: var(--success); }
         .stats-icon.warning { background: rgba(255, 214, 165, 0.15); color: var(--warning); }
         .stats-icon.info { background: rgba(160, 196, 255, 0.15); color: var(--info); }
@@ -517,13 +508,12 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-md);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid var(--gray-light);
         }
 
         .table thead th {
             background: var(--primary-gradient);
-            color: #fff;
+            color: var(--dark);
             font-weight: 600;
             border: none;
             padding: 20px;
@@ -679,6 +669,17 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
         }
+
+        /* Nav Header Styling */
+        .nav-header {
+            color: var(--dark-light) !important;
+            font-size: 0.75rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            padding: 20px 25px 10px !important;
+            margin: 0 !important;
+            font-weight: 600 !important;
+        }
     </style>
 </head>
 <body>
@@ -705,32 +706,47 @@
                 <span>Perangkat Desa</span>
             </a>
 
+            <!-- Menu Lembaga Desa -->
+            <li class="nav-header">LEMBAGA DESA</li>
+
             <a href="{{ route('lembaga.index') }}" 
-               class="nav-link {{ isset($page) && $page == 'lembaga' ? 'active' : '' }}">
+               class="nav-link {{ request()->is('lembaga*') ? 'active' : '' }}">
                 <i class="fas fa-landmark"></i> 
-                <span>Lembaga Desa</span>
+                <span>Data Lembaga</span>
             </a>
 
             <a href="{{ route('jabatan.index') }}" 
-               class="nav-link {{ isset($page) && $page == 'jabatan' ? 'active' : '' }}">
+               class="nav-link {{ request()->is('jabatan*') ? 'active' : '' }}">
                 <i class="fas fa-id-card"></i> 
-                <span>Jabatan Desa</span>
+                <span>Jabatan Lembaga</span>
             </a>
 
+            <a href="{{ route('anggota-lembaga.index') }}" 
+               class="nav-link {{ request()->is('anggota-lembaga*') ? 'active' : '' }}">
+                <i class="fas fa-users"></i> 
+                <span>Anggota Lembaga</span>
+            </a>
+
+            <!-- Menu RT/RW -->
+            <li class="nav-header">WILAYAH</li>
+
             <a href="{{ route('rw.index') }}" 
-               class="nav-link {{ isset($page) && $page == 'rw' ? 'active' : '' }}">
+               class="nav-link {{ request()->is('rw*') ? 'active' : '' }}">
                 <i class="fas fa-user-tie"></i> 
                 <span>Data RW</span>
             </a>
 
             <a href="{{ route('rt.index') }}" 
-               class="nav-link {{ isset($page) && $page == 'rt' ? 'active' : '' }}">
+               class="nav-link {{ request()->is('rt*') ? 'active' : '' }}">
                 <i class="fas fa-user-tie"></i> 
                 <span>Data RT</span>
             </a>
 
+            <!-- Menu Warga -->
+            <li class="nav-header">DATA WARGA</li>
+
             <a href="{{ route('warga.index') }}" 
-               class="nav-link {{ isset($page) && $page == 'warga' ? 'active' : '' }}">
+               class="nav-link {{ request()->is('warga*') ? 'active' : '' }}">
                 <i class="fas fa-people-roof"></i> 
                 <span>Data Warga</span>
             </a>
@@ -799,114 +815,35 @@
                 rootMargin: '0px 0px -50px 0px'
             };
 
-            const fadeInObserver = new IntersectionObserver(function(entries) {
+            const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = "1";
-                        entry.target.style.transform = "translateY(0)";
-                        fadeInObserver.unobserve(entry.target);
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
                     }
                 });
             }, observerOptions);
 
             fadeElements.forEach(element => {
-                element.style.opacity = "0";
-                element.style.transform = "translateY(30px)";
-                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-                fadeInObserver.observe(element);
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
             });
-
-            // Add ripple effect to CRUD buttons
-            document.querySelectorAll('.btn-crud').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-
-                    ripple.style.cssText = `
-                        position: absolute;
-                        border-radius: 50%;
-                        background: rgba(255,255,255,0.6);
-                        transform: scale(0);
-                        animation: ripple 0.6s linear;
-                        width: ${size}px;
-                        height: ${size}px;
-                        left: ${x}px;
-                        top: ${y}px;
-                        z-index: 1;
-                    `;
-
-                    this.appendChild(ripple);
-
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
-
-            // Profile button click handler
-            document.getElementById('profileBtn')?.addEventListener('click', function() {
-                alert('Menu profil akan segera tersedia!');
-            });
-
-            // Active link highlighting
-            const currentPath = window.location.pathname;
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Add ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Sidebar collapse on mobile
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const content = document.querySelector('.content');
             
-            if (window.innerWidth <= 1200) {
-                const isCollapsed = sidebar.style.width === '80px' || getComputedStyle(sidebar).width === '80px';
-                
-                if (isCollapsed) {
-                    sidebar.style.width = '280px';
-                    content.style.marginLeft = '280px';
-                } else {
-                    sidebar.style.width = '80px';
-                    content.style.marginLeft = '80px';
-                }
+            // Profile button functionality
+            const profileBtn = document.getElementById('profileBtn');
+            if (profileBtn) {
+                profileBtn.addEventListener('click', function() {
+                    alert('Fitur profil akan segera tersedia!');
+                });
             }
-        }
-
-        // Auto-collapse sidebar on mobile
-        window.addEventListener('resize', function() {
-            if (window.innerWidth <= 1200) {
-                document.querySelector('.sidebar').style.width = '80px';
-                document.querySelector('.content').style.marginLeft = '80px';
-            } else {
-                document.querySelector('.sidebar').style.width = '280px';
-                document.querySelector('.content').style.marginLeft = '280px';
-            }
-        });
-
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', function() {
-            if (window.innerWidth <= 1200) {
-                document.querySelector('.sidebar').style.width = '80px';
-                document.querySelector('.content').style.marginLeft = '80px';
-            }
+            
+            // Smooth scroll for page transitions
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>

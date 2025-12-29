@@ -53,7 +53,8 @@ class PerangkatController extends Controller
         $validated = $request->validate([
             'warga_id' => 'required|exists:warga,id',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'jabatan' => 'required|string|max:100|in:Kepala Desa,Sekretaris Desa,Bendahara Desa,Kasi Pemerintahan,Kasi Kesejahteraan,Kasi Pelayanan,Kadus,Staf',
+            'jabatan' => 'required|string|max:100|in:Kepala Desa,Sekretaris Desa,Bendahara Desa,Kasi Pemerintahan,Kasi Kesejahteraan,
+                          Kasi Pelayanan,Kadus,Staf',
             'nip' => 'nullable|string|max:50',
             'kontak' => 'nullable|string|max:20',
             'periode_mulai' => 'nullable|date',

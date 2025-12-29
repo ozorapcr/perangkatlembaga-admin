@@ -44,7 +44,7 @@ class RtController extends Controller
             'totalRW'
         ));
     }
-
+    
     /**
      * Menampilkan form tambah RT
      */
