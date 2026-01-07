@@ -13,7 +13,7 @@ class JabatanLembaga extends Model
 
     protected $table = 'jabatan_lembagas';
     protected $primaryKey = 'jabatan_id';
-    
+
     protected $fillable = [
         'lembaga_id',
         'nama_jabatan',
@@ -25,7 +25,7 @@ class JabatanLembaga extends Model
      */
     public function lembaga()
     {
-        return $this->belongsTo(LembagaDesa::class, 'lembaga_id', 'lembaga_id');
+        return $this->belongsTo(Lembaga::class, 'lembaga_id', 'lembaga_id');
     }
 
     /**

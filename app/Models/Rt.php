@@ -32,10 +32,10 @@ class Rt extends Model
      * Relasi ke Warga (ketua RT)
      * Hapus komentar jika tabel warga sudah ada
      */
-    // public function ketua()
-    // {
-    //     return $this->belongsTo(Warga::class, 'ketua_rt_warga_id', 'id');
-    // }
+    public function ketua()
+    {
+        return $this->belongsTo(Warga::class, 'ketua_rt_warga_id', 'id');
+    }
 
     /**
      * Scope untuk filter data RT

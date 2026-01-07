@@ -3,9 +3,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\AnggotaLembaga;
-use App\Models\Warga;
 use App\Models\JabatanLembaga;
+use App\Models\Lembaga;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 
 class AnggotaLembagaController extends Controller
@@ -22,16 +24,16 @@ class AnggotaLembagaController extends Controller
 
         // Search
         if ($request->filled('search')) {
-            $query->where(function($q) use ($request) {
-                $q->whereHas('lembaga', function($q) use ($request) {
+            $query->where(function ($q) use ($request) {
+                $q->whereHas('lembaga', function ($q) use ($request) {
                     $q->where('nama_lembaga', 'LIKE', '%' . $request->search . '%');
                 })
-                ->orWhereHas('warga', function($q) use ($request) {
-                    $q->where('nama', 'LIKE', '%' . $request->search . '%');
-                })
-                ->orWhereHas('jabatan', function($q) use ($request) {
-                    $q->where('nama_jabatan', 'LIKE', '%' . $request->search . '%');
-                });
+                    ->orWhereHas('warga', function ($q) use ($request) {
+                        $q->where('nama', 'LIKE', '%' . $request->search . '%');
+                    })
+                    ->orWhereHas('jabatan', function ($q) use ($request) {
+                        $q->where('nama_jabatan', 'LIKE', '%' . $request->search . '%');
+                    });
             });
         }
 
@@ -60,14 +62,14 @@ class AnggotaLembagaController extends Controller
         }
 
         $anggotaLembagas = $query->paginate(10);
-        
-        // GUNAKAN FULLY QUALIFIED CLASS NAME
-        $lembagas = \App\Models\Lembaga::all(); // Tambahkan backslash di depan
-        
-        $wargas = Warga::all();
+
+                                    // GUNAKAN FULLY QUALIFIED CLASS NAME
+        $lembagas = Lembaga::all(); // Tambahkan backslash di depan
+
+        $wargas   = Warga::all();
         $jabatans = JabatanLembaga::all();
 
-        return view('anggota-lembaga.index', compact('anggotaLembagas', 'lembagas', 'wargas', 'jabatans'));
+        return view('pages.anggota-lembaga.index', compact('anggotaLembagas', 'lembagas', 'wargas', 'jabatans'));
     }
 
     /**
@@ -75,12 +77,12 @@ class AnggotaLembagaController extends Controller
      */
     public function create()
     {
-        // GUNAKAN FULLY QUALIFIED CLASS NAME
-        $lembagas = \App\Models\LembagaDesa::all(); // Tambahkan backslash di depan
-        $wargas = Warga::all();
+                                                    // GUNAKAN FULLY QUALIFIED CLASS NAME
+        $lembagas = Lembaga::all(); // Tambahkan backslash di depan
+        $wargas   = Warga::all();
         $jabatans = JabatanLembaga::all();
-        
-        return view('anggota-lembaga.create', compact('lembagas', 'wargas', 'jabatans'));
+
+        return view('pages.anggota-lembaga.create', compact('lembagas', 'wargas', 'jabatans'));
     }
 
     /**
@@ -89,10 +91,10 @@ class AnggotaLembagaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'lembaga_id' => 'required|exists:lembaga_desas,lembaga_id',
-            'warga_id' => 'required|exists:wargas,id',
-            'jabatan_id' => 'required|exists:jabatan_lembagas,jabatan_id',
-            'tgl_mulai' => 'required|date',
+            'lembaga_id'  => 'required|exists:lembaga_desas,lembaga_id',
+            'warga_id'    => 'required|exists:warga,id',
+            'jabatan_id'  => 'required|exists:jabatan_lembagas,jabatan_id',
+            'tgl_mulai'   => 'required|date',
             'tgl_selesai' => 'nullable|date|after:tgl_mulai',
         ]);
 
@@ -111,7 +113,7 @@ class AnggotaLembagaController extends Controller
         AnggotaLembaga::create($validated);
 
         return redirect()->route('anggota-lembaga.index')
-                         ->with('success', 'Anggota Lembaga berhasil ditambahkan.');
+            ->with('success', 'Anggota Lembaga berhasil ditambahkan.');
     }
 
     /**
@@ -128,12 +130,12 @@ class AnggotaLembagaController extends Controller
      */
     public function edit(AnggotaLembaga $anggotaLembaga)
     {
-        // GUNAKAN FULLY QUALIFIED CLASS NAME
-        $lembagas = \App\Models\LembagaDesa::all(); // Tambahkan backslash di depan
-        $wargas = Warga::all();
+                                                    // GUNAKAN FULLY QUALIFIED CLASS NAME
+        $lembagas = Lembaga::all(); // Tambahkan backslash di depan
+        $wargas   = Warga::all();
         $jabatans = JabatanLembaga::all();
-        
-        return view('anggota-lembaga.edit', compact('anggotaLembaga', 'lembagas', 'wargas', 'jabatans'));
+
+        return view('pages.anggota-lembaga.edit', compact('anggotaLembaga', 'lembagas', 'wargas', 'jabatans'));
     }
 
     /**
@@ -142,10 +144,10 @@ class AnggotaLembagaController extends Controller
     public function update(Request $request, AnggotaLembaga $anggotaLembaga)
     {
         $validated = $request->validate([
-            'lembaga_id' => 'required|exists:lembaga_desas,lembaga_id',
-            'warga_id' => 'required|exists:wargas,id',
-            'jabatan_id' => 'required|exists:jabatan_lembagas,jabatan_id',
-            'tgl_mulai' => 'required|date',
+            'lembaga_id'  => 'required|exists:lembaga_desas,lembaga_id',
+            'warga_id'    => 'required|exists:warga,id',
+            'jabatan_id'  => 'required|exists:jabatan_lembagas,jabatan_id',
+            'tgl_mulai'   => 'required|date',
             'tgl_selesai' => 'nullable|date|after:tgl_mulai',
         ]);
 
@@ -166,7 +168,7 @@ class AnggotaLembagaController extends Controller
         $anggotaLembaga->update($validated);
 
         return redirect()->route('anggota-lembaga.index')
-                         ->with('success', 'Anggota Lembaga berhasil diperbarui.');
+            ->with('success', 'Anggota Lembaga berhasil diperbarui.');
     }
 
     /**
@@ -177,6 +179,6 @@ class AnggotaLembagaController extends Controller
         $anggotaLembaga->delete();
 
         return redirect()->route('anggota-lembaga.index')
-                         ->with('success', 'Anggota Lembaga berhasil dihapus.');
+            ->with('success', 'Anggota Lembaga berhasil dihapus.');
     }
 }

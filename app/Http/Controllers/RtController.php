@@ -15,43 +15,43 @@ class RtController extends Controller
     {
         $filterableColumns = ['rw_id', 'nomor_rt', 'filter_ketua'];
         $searchableColumns = ['nomor_rt', 'keterangan'];
-        
+
         // Query dengan filter dan search
         $query = Rt::with(['rw'])
             ->filter($request, $filterableColumns)
             ->search($request, $searchableColumns)
             ->orderBy('rw_id')
             ->orderBy('nomor_rt');
-            
+
         // Paginate hasil
         $rts = $query->paginate(10);
-        
+
         // Ambil semua data RW untuk dropdown filter
         $rws = Rw::orderBy('nomorRw')->get();
-        
+
         // Hitung statistik untuk ditampilkan
         $totalRT = Rt::count();
         $rtWithKetua = Rt::whereNotNull('ketua_rt_warga_id')->count();
         $rtWithoutKetua = Rt::whereNull('ketua_rt_warga_id')->count();
         $totalRW = Rw::count();
-        
+
         return view('pages.rt.index', compact(
-            'rts', 
-            'rws', 
-            'totalRT', 
-            'rtWithKetua', 
-            'rtWithoutKetua', 
+            'rts',
+            'rws',
+            'totalRT',
+            'rtWithKetua',
+            'rtWithoutKetua',
             'totalRW'
         ));
     }
-    
+
     /**
      * Menampilkan form tambah RT
      */
     public function create()
     {
         $rws = Rw::orderBy('nomorRw')->get();
-        return view('rt.create', compact('rws'));
+        return view('pages.rt.create', compact('rws'));
     }
 
     /**
@@ -71,7 +71,7 @@ class RtController extends Controller
         $existing = Rt::where('rw_id', $validated['rw_id'])
             ->where('nomor_rt', $validated['nomor_rt'])
             ->first();
-            
+
         if ($existing) {
             return redirect()->back()
                 ->withInput()
@@ -80,7 +80,7 @@ class RtController extends Controller
 
         // Simpan data
         Rt::create($validated);
-        
+
         return redirect()->route('rt.index')
             ->with('success', 'Data RT berhasil ditambahkan.');
     }
@@ -100,7 +100,7 @@ class RtController extends Controller
     public function edit(Rt $rt)
     {
         $rws = Rw::orderBy('nomorRw')->get();
-        return view('rt.edit', compact('rt', 'rws'));
+        return view('pages.rt.edit', compact('rt', 'rws'));
     }
 
     /**
@@ -121,7 +121,7 @@ class RtController extends Controller
             ->where('nomor_rt', $validated['nomor_rt'])
             ->where('rt_id', '!=', $rt->rt_id)
             ->first();
-            
+
         if ($existing) {
             return redirect()->back()
                 ->withInput()
@@ -130,7 +130,7 @@ class RtController extends Controller
 
         // Update data
         $rt->update($validated);
-        
+
         return redirect()->route('rt.index')
             ->with('success', 'Data RT berhasil diperbarui.');
     }
@@ -141,7 +141,7 @@ class RtController extends Controller
     public function destroy(Rt $rt)
     {
         $rt->delete();
-        
+
         return redirect()->route('rt.index')
             ->with('success', 'Data RT berhasil dihapus.');
     }

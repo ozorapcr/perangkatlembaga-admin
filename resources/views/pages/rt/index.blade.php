@@ -4,7 +4,7 @@
 <div class="main-content">
     <!-- Notifikasi -->
     @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" 
+    <div class="alert alert-success alert-dismissible fade show" role="alert"
          style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); color: white; border: none; border-radius: var(--border-radius); box-shadow: var(--shadow-sm);">
         <i class="fas fa-check-circle me-2"></i>
         {{ session('success') }}
@@ -43,7 +43,7 @@
                 <div class="stats-number">{{ $rtWithKetua ?? 0 }}</div>
                 <div class="stats-label">RT dengan Ketua</div>
                 <div class="progress mt-3" style="height: 6px; background: rgba(72, 187, 120, 0.1);">
-                    <div class="progress-bar" role="progressbar" 
+                    <div class="progress-bar" role="progressbar"
                          style="width: {{ $totalRT ? ($rtWithKetua/$totalRT)*100 : 0 }}%; background: var(--success);"></div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <div class="stats-number">{{ $rtWithoutKetua ?? 0 }}</div>
                 <div class="stats-label">RT tanpa Ketua</div>
                 <div class="progress mt-3" style="height: 6px; background: rgba(237, 137, 54, 0.1);">
-                    <div class="progress-bar" role="progressbar" 
+                    <div class="progress-bar" role="progressbar"
                          style="width: {{ $totalRT ? ($rtWithoutKetua/$totalRT)*100 : 0 }}%; background: var(--warning);"></div>
                 </div>
             </div>
@@ -111,8 +111,8 @@
                         </div>
                         <div class="col-md-4">
                             <label class="form-label" style="color: var(--dark); font-weight: 500;">Nomor RT</label>
-                            <input type="text" name="nomor_rt" class="form-control" 
-                                   value="{{ request('nomor_rt') }}" 
+                            <input type="text" name="nomor_rt" class="form-control"
+                                   value="{{ request('nomor_rt') }}"
                                    placeholder="Cari nomor RT"
                                    style="border-radius: 12px; border: 1px solid var(--gray-light); padding: 10px;">
                         </div>
@@ -142,11 +142,11 @@
         <!-- Search Bar -->
         <form method="GET" action="{{ route('rt.index') }}" class="mb-4">
             <div class="input-group" style="border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm);">
-                <input type="text" name="search" class="form-control" 
-                       value="{{ request('search') }}" 
+                <input type="text" name="search" class="form-control"
+                       value="{{ request('search') }}"
                        placeholder="Cari berdasarkan nomor RT atau keterangan..."
                        style="border: none; padding: 15px; font-size: 0.95rem;">
-                <button class="btn" type="submit" 
+                <button class="btn" type="submit"
                         style="background: var(--primary-gradient); color: white; border: none; padding: 0 25px;">
                     <i class="fas fa-search"></i>
                 </button>
@@ -202,23 +202,19 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('rt.show', $rt->rt_id) }}" 
-                                       class="btn-crud btn-detail btn-sm" 
-                                       title="Detail">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('rt.edit', $rt->rt_id) }}" 
-                                       class="btn-crud btn-edit btn-sm" 
+                                   
+                                    <a href="{{ route('rt.edit', $rt->rt_id) }}"
+                                       class="btn-crud btn-edit btn-sm"
                                        title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('rt.destroy', $rt->rt_id) }}" 
-                                          method="POST" 
+                                    <form action="{{ route('rt.destroy', $rt->rt_id) }}"
+                                          method="POST"
                                           onsubmit="return confirm('Yakin menghapus RT {{ $rt->nomor_rt }}?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" 
-                                                class="btn-crud btn-hapus btn-sm" 
+                                        <button type="submit"
+                                                class="btn-crud btn-hapus btn-sm"
                                                 title="Hapus">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -260,7 +256,7 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $rts->previousPageUrl() }}" 
+                            <a class="page-link" href="{{ $rts->previousPageUrl() }}"
                                style="border-radius: 12px; margin: 0 3px; border: 1px solid var(--gray-light); color: var(--primary);">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
@@ -271,14 +267,14 @@
                     @foreach ($rts->links()->elements[0] as $page => $url)
                         @if ($page == $rts->currentPage())
                             <li class="page-item active">
-                                <span class="page-link" 
+                                <span class="page-link"
                                       style="border-radius: 12px; margin: 0 3px; background: var(--primary-gradient); border: none;">
                                     {{ $page }}
                                 </span>
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $url }}" 
+                                <a class="page-link" href="{{ $url }}"
                                    style="border-radius: 12px; margin: 0 3px; border: 1px solid var(--gray-light); color: var(--dark);">
                                     {{ $page }}
                                 </a>
@@ -289,7 +285,7 @@
                     {{-- Next Page Link --}}
                     @if ($rts->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $rts->nextPageUrl() }}" 
+                            <a class="page-link" href="{{ $rts->nextPageUrl() }}"
                                style="border-radius: 12px; margin: 0 3px; border: 1px solid var(--gray-light); color: var(--primary);">
                                 <i class="fas fa-chevron-right"></i>
                             </a>
@@ -309,7 +305,7 @@
 </div>
 
 <!-- WhatsApp Float Button -->
-<a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20bertanya%20tentang%20data%20RT" 
+<a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20bertanya%20tentang%20data%20RT"
    class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>

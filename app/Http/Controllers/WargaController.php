@@ -7,75 +7,101 @@ use Illuminate\Http\Request;
 
 class WargaController extends Controller
 {
-    // ✅ Tampilkan semua warga dengan filter dan search
+    // =======================
+    // INDEX (LIST WARGA)
+    // =======================
     public function index(Request $request)
     {
-        // Daftar kolom yang bisa difilter sesuai name pada form
+        // Kolom yang bisa difilter
         $filterableColumns = ['alamat'];
         $searchableColumns = ['nama', 'nik', 'alamat', 'no_hp'];
 
-        // Gunakan scope filter dan search
+        // Ambil data warga + filter + search
         $warga = Warga::filter($request, $filterableColumns)
-                     ->search($request, $searchableColumns)
-                     ->latest()
-                     ->paginate(10);
+            ->search($request, $searchableColumns)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        // 🔥 Statistik total warga
+        $totalWarga = Warga::count();
 
         return view('pages.warga.index', [
-            'warga' => $warga,
-            'page' => 'warga' // 🔥 kirim ke layout
+            'warga'       => $warga,
+            'totalWarga'  => $totalWarga,   // ⬅️ SEKARANG DIKIRIM KE BLADE
+            'page'        => 'warga',
         ]);
     }
-    
-    // ✅ Form tambah warga
+
+    // =======================
+    // CREATE
+    // =======================
     public function create()
     {
-        return view('pages.warga.create', ['page' => 'warga']);
+        return view('pages.warga.create', [
+            'page' => 'warga'
+        ]);
     }
 
-    // ✅ Simpan data warga baru
+    // =======================
+    // STORE
+    // =======================
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nik' => 'nullable|string|unique:warga,nik',
-            'no_hp' => 'nullable|string|max:20',
+            'nama'   => 'required|string|max:255',
+            'nik'    => 'nullable|string|unique:warga,nik',
+            'no_hp'  => 'nullable|string|max:20',
             'alamat' => 'nullable|string',
         ]);
 
         Warga::create($request->all());
-        return redirect()->route('pages.warga.index')->with('success', 'Data warga berhasil ditambahkan.');
+
+        return redirect()->route('warga.index')
+            ->with('success', 'Data warga berhasil ditambahkan.');
     }
 
-    // ✅ Form edit warga
+    // =======================
+    // EDIT
+    // =======================
     public function edit($id)
     {
         $warga = Warga::findOrFail($id);
+
         return view('pages.warga.edit', [
             'warga' => $warga,
-            'page' => 'warga' // 🔥 penting juga di sini
+            'page'  => 'warga',
         ]);
     }
 
-    // ✅ Update data warga
+    // =======================
+    // UPDATE
+    // =======================
     public function update(Request $request, $id)
     {
         $warga = Warga::findOrFail($id);
 
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'nik' => 'nullable|string|unique:warga,nik,' . $id,
-            'no_hp' => 'nullable|string|max:20',
+            'nama'   => 'required|string|max:255',
+            'nik'    => 'nullable|string|unique:warga,nik,' . $id,
+            'no_hp'  => 'nullable|string|max:20',
             'alamat' => 'nullable|string',
         ]);
 
         $warga->update($request->all());
-        return redirect()->route('pages.warga.index')->with('success', 'Data warga berhasil diperbarui.');
+
+        return redirect()->route('warga.index')
+            ->with('success', 'Data warga berhasil diperbarui.');
     }
 
-    // ✅ Hapus data warga
+    // =======================
+    // DESTROY
+    // =======================
     public function destroy($id)
     {
         Warga::destroy($id);
-        return redirect()->route('pages.warga.index')->with('success', 'Data warga berhasil dihapus.');
+
+        return redirect()->route('warga.index')
+            ->with('success', 'Data warga berhasil dihapus.');
     }
 }

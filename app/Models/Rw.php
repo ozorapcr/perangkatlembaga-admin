@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Warga;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Rw extends Model
 {
@@ -54,9 +55,9 @@ class Rw extends Model
         return $query;
     }
 
-    // Jika ada relasi ke tabel warga
-    // public function ketua()
-    // {
-    //     return $this->belongsTo(Warga::class, 'ketuaRwWargaId');
-    // }
+
+    public function ketua()
+    {
+        return $this->belongsTo(Warga::class, 'ketuaRwWargaId','id');
+    }
 }

@@ -1,88 +1,156 @@
+
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">Data Perangkat Desa</h6>
-                    <a href="{{ route('perangkat.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Tambah Perangkat
-                    </a>
+<div class="main-content">
+
+    {{-- ==== SUCCESS / ERROR ==== --}}
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show">
+        {{ session('success') }}
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    @endif
+
+
+    {{-- ==== STATISTIK ==== --}}
+    <div class="row mb-4">
+
+        <div class="col-xl-4 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-icon info">
+                    <i class="fas fa-users"></i>
                 </div>
+                <div class="stats-number">{{ $data->count() ?? 0 }}</div>
+                <div class="stats-label">Total Perangkat</div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-icon success">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stats-number">
+                    {{ $data->where('jabatan','Kepala Desa')->count() ?? 0 }}
+                </div>
+                <div class="stats-label">Kepala Desa</div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-icon warning">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="stats-number">
+                    {{ $data->where('jabatan','!=','Kepala Desa')->count() ?? 0 }}
+                </div>
+                <div class="stats-label">Perangkat Lainnya</div>
+            </div>
+        </div>
+
+    </div>
+
+
+    {{-- ==== HEADER CONTENT ==== --}}
+    <div class="content-card">
+
+        <div class="content-header">
+            <h1 class="content-title">
+                <i class="fas fa-user-tie me-2"></i> Data Perangkat Desa
+            </h1>
+
+            <div class="d-flex gap-2">
+                <button class="btn-crud btn-kembali"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#filterCollapse">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+
+                <a href="{{ route('perangkat.create') }}" class="btn-crud btn-tambah">
+                    <i class="fas fa-plus"></i> Tambah Perangkat
+                </a>
+            </div>
+        </div>
+
+
+        {{-- ==== FILTER ==== --}}
+        <div class="collapse mb-4" id="filterCollapse">
+            <div class="card">
                 <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                    <form method="GET" action="{{ route('perangkat.index') }}" class="row g-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Filter Jabatan</label>
+                            <select name="jabatan" class="form-control">
+                                <option value="">Semua Jabatan</option>
+                                <option value="Kepala Desa" {{ request('jabatan')=='Kepala Desa'?'selected':'' }}>Kepala Desa</option>
+                                <option value="Sekretaris Desa" {{ request('jabatan')=='Sekretaris Desa'?'selected':'' }}>Sekretaris Desa</option>
+                                <option value="Bendahara Desa" {{ request('jabatan')=='Bendahara Desa'?'selected':'' }}>Bendahara Desa</option>
+                                <option value="Kasi Pemerintahan" {{ request('jabatan')=='Kasi Pemerintahan'?'selected':'' }}>Kasi Pemerintahan</option>
+                                <option value="Kasi Kesejahteraan" {{ request('jabatan')=='Kasi Kesejahteraan'?'selected':'' }}>Kasi Kesejahteraan</option>
+                                <option value="Kasi Pelayanan" {{ request('jabatan')=='Kasi Pelayanan'?'selected':'' }}>Kasi Pelayanan</option>
+                                <option value="Kadus" {{ request('jabatan')=='Kadus'?'selected':'' }}>Kepala Dusun</option>
+                                <option value="Staf" {{ request('jabatan')=='Staf'?'selected':'' }}>Staf</option>
+                            </select>
                         </div>
-                    @endif
 
-                    <form method="GET" action="{{ route('perangkat.index') }}" class="mb-4">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label for="jabatan" class="form-label small fw-bold">Filter Jabatan:</label>
-                                <select name="jabatan" id="jabatan" class="form-select form-select-sm" onchange="this.form.submit()">
-                                    <option value="">Semua Jabatan</option>
-                                    <option value="Kepala Desa" {{ request('jabatan') == 'Kepala Desa' ? 'selected' : '' }}>Kepala Desa</option>
-                                    <option value="Sekretaris Desa" {{ request('jabatan') == 'Sekretaris Desa' ? 'selected' : '' }}>Sekretaris Desa</option>
-                                    <option value="Bendahara Desa" {{ request('jabatan') == 'Bendahara Desa' ? 'selected' : '' }}>Bendahara Desa</option>
-                                    <option value="Kasi Pemerintahan" {{ request('jabatan') == 'Kasi Pemerintahan' ? 'selected' : '' }}>Kasi Pemerintahan</option>
-                                    <option value="Kasi Kesejahteraan" {{ request('jabatan') == 'Kasi Kesejahteraan' ? 'selected' : '' }}>Kasi Kesejahteraan</option>
-                                    <option value="Kasi Pelayanan" {{ request('jabatan') == 'Kasi Pelayanan' ? 'selected' : '' }}>Kasi Pelayanan</option>
-                                    <option value="Kadus" {{ request('jabatan') == 'Kadus' ? 'selected' : '' }}>Kepala Dusun</option>
-                                    <option value="Staf" {{ request('jabatan') == 'Staf' ? 'selected' : '' }}>Staf</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="search" class="form-label small fw-bold">Search:</label>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" name="search" class="form-control" 
-                                            value="{{ request('search') }}" placeholder="Search jabatan, NIP, kontak..." 
-                                            aria-label="Search">
-                                    <button type="submit" class="btn btn-outline-primary">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    @if(request('search'))
-                                        <a href="{{ route('perangkat.index', request()->except(['search', 'page'])) }}" class="btn btn-outline-secondary">Clear</a>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 d-flex align-items-end">
-                                <a href="{{ route('perangkat.index') }}" class="btn btn-secondary btn-sm">
-                                    <i class="fas fa-refresh"></i> Reset All
-                                </a>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Search</label>
+                            <input type="text" name="search" class="form-control"
+                                   value="{{ request('search') }}"
+                                   placeholder="Cari nama, jabatan, NIP ...">
                         </div>
+
+                        <div class="col-md-4 d-flex align-items-end justify-content-end gap-2">
+                            <button class="btn-crud btn-simpan">
+                                Terapkan
+                            </button>
+
+                            <a href="{{ route('perangkat.index') }}" class="btn-crud btn-kembali">
+                                Reset
+                            </a>
+                        </div>
+
                     </form>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover table-sm">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th width="50">No</th>
-                                    <th width="80">Foto</th>
-                                    <th>Nama Warga</th>
-                                    <th>Jabatan</th>
-                                    <th width="120">NIP</th>
-                                    <th width="120">Kontak</th>
-                                    <th width="200">Periode</th>
-                                    <th width="150" class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($data as $i => $row)
-                                <tr>
-                                    <td class="text-center">{{ $i+1 }}</td>
-                                    <td class="text-center">
+                </div>
+            </div>
+        </div>
+
+
+        {{-- ==== TABLE ==== --}}
+        <div class="table-container">
+
+            @if($data->count())
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Foto</th>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>NIP</th>
+                        <th>Kontak</th>
+                        <th>Periode</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach($data as $row)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td class="text-center">
                                         @if($row->foto)
                                             {{-- MENGGUNAKAN HELPER ASSET DENGAN PATH 'storage/' --}}
-                                            <img src="{{ asset('storage/' . $row->foto) }}" 
-                                                alt="Foto Profil" 
-                                                class="rounded-circle border" 
+                                            <img src="{{ asset('storage/' . $row->foto) }}"
+                                                alt="Foto Profil"
+                                                class="rounded-circle border"
                                                 style="width: 50px; height: 50px; object-fit: cover;"
                                                 onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode($row->warga->nama ?? 'Unknown') }}&background=E91E63&color=fff&size=50';">
                                         @else
@@ -90,7 +158,7 @@
                                                 $nama = $row->warga->nama ?? 'Unknown';
                                                 $names = explode(' ', $nama);
                                                 // Ambil inisial 2 kata pertama atau 1 kata pertama
-                                                $initials = (count($names) > 1) ? 
+                                                $initials = (count($names) > 1) ?
                                                             strtoupper(substr($names[0], 0, 1) . substr(end($names), 0, 1)) :
                                                             strtoupper(substr($names[0], 0, 1));
                                                 $colors = ['primary', 'success', 'danger', 'warning', 'info', 'secondary'];
@@ -103,96 +171,63 @@
                                             </div>
                                         @endif
                                     </td>
-                                    <td>
-                                        <div class="fw-semibold">{{ $row->warga->nama ?? '-' }}</div>
-                                        <small class="text-muted">ID: {{ $row->warga_id }}</small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-primary">{{ $row->jabatan }}</span>
-                                    </td>
-                                    <td>
-                                        <small class="text-truncate d-inline-block" style="max-width: 110px;" 
-                                                title="{{ $row->nip ?? '-' }}">
-                                            {{ $row->nip ?? '-' }}
-                                        </small>
-                                    </td>
-                                    <td>
-                                        <small class="text-truncate d-inline-block" style="max-width: 110px;" 
-                                                title="{{ $row->kontak ?? '-' }}">
-                                            {{ $row->kontak ?? '-' }}
-                                        </small>
-                                    </td>
-                                    <td>
-                                        <small>
-                                            <div><strong>Mulai:</strong> {{ $row->periode_mulai ? date('d/m/Y', strtotime($row->periode_mulai)) : '-' }}</div>
-                                            <div><strong>Selesai:</strong> {{ $row->periode_selesai ? date('d/m/Y', strtotime($row->periode_selesai)) : '-' }}</div>
-                                        </small>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{{ route('perangkat.edit', $row->id) }}" 
-                                                class="btn btn-warning" 
-                                                title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('perangkat.destroy', $row->id) }}" method="POST" 
-                                                    style="display:inline-block" 
-                                                    onsubmit="return confirm('Yakin ingin menghapus data perangkat ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="8" class="text-center py-4">
-                                        <div class="text-muted">
-                                            <i class="fas fa-inbox fa-2x mb-2"></i>
-                                            <br>
-                                            @if(request('jabatan') || request('search'))
-                                                Tidak ada data perangkat yang sesuai dengan filter
-                                            @else
-                                                Tidak ada data perangkat
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                        <td>{{ $row->warga->nama ?? '-' }}</td>
 
-                    @if($data->count() > 0)
-                        <div class="mt-3 text-muted small">
-                            Menampilkan <strong>{{ $data->count() }}</strong> data perangkat
-                        </div>
-                    @endif
-                </div>
+
+                        <td>
+                            <span class="badge bg-primary">{{ $row->jabatan }}</span>
+                        </td>
+
+                        <td>{{ $row->nip ?? '-' }}</td>
+
+                        <td>{{ $row->kontak ?? '-' }}</td>
+
+                        <td>
+                            {{ $row->periode_mulai ? date('d/m/Y', strtotime($row->periode_mulai)) : '-' }}
+                            s/d
+                            {{ $row->periode_selesai ? date('d/m/Y', strtotime($row->periode_selesai)) : '-' }}
+                        </td>
+
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ route('perangkat.show', $row->id) }}" class="btn-crud btn-detail btn-sm">
+                                       <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('perangkat.edit', $row->id) }}" class="btn-crud btn-edit btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <form action="{{ route('perangkat.destroy', $row->id) }}" method="POST"
+                                      onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn-crud btn-hapus btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+
+                </table>
             </div>
-        </div>
-    </div>
-</div>
 
-<style>
-.table-responsive {
-    border: 1px solid #dee2e6;
-    border-radius: 0.375rem;
-}
-.table th {
-    border-bottom: 2px solid #dee2e6;
-    font-weight: 600;
-    font-size: 0.875rem;
-}
-.table td {
-    font-size: 0.875rem;
-    vertical-align: middle;
-}
-.badge {
-    font-size: 0.75rem;
-}
-</style>
+            @else
+
+            <div class="empty-state text-center py-5">
+                <i class="fas fa-users fa-4x text-muted mb-3"></i>
+                <h4>Tidak ada data perangkat</h4>
+            </div>
+
+            @endif
+
+        </div>
+
+    </div>
+
+</div>
 @endsection
+

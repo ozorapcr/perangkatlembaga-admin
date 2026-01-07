@@ -13,7 +13,7 @@ class AnggotaLembaga extends Model
 
     protected $table = 'anggota_lembagas';
     protected $primaryKey = 'anggota_id';
-    
+
     protected $fillable = [
         'lembaga_id',
         'warga_id',
@@ -32,7 +32,7 @@ class AnggotaLembaga extends Model
      */
     public function lembaga()
     {
-        return $this->belongsTo(LembagaDesa::class, 'lembaga_id', 'lembaga_id');
+        return $this->belongsTo(Lembaga::class, 'lembaga_id', 'lembaga_id');
     }
 
     /**

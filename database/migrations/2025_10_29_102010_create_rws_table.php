@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Jika nanti ada tabel warga:
-            // $table->foreign('ketuaRwWargaId')->references('id')->on('wargas')->onDelete('set null');
+            $table->foreign('ketuaRwWargaId')->references('id')->on('warga')->onDelete('set null');
         });
     }
 

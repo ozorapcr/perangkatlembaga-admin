@@ -14,7 +14,6 @@ class AuthController extends Controller
      */
     public function showLoginForm()
     {
-        // Jika user sudah login, arahkan ke dashboard
         if (Session::get('user_logged_in')) {
             return redirect()->route('dashboard');
         }
@@ -27,7 +26,6 @@ class AuthController extends Controller
      */
     public function showRegisterForm()
     {
-        // Jika user sudah login, tidak perlu register lagi
         if (Session::get('user_logged_in')) {
             return redirect()->route('dashboard');
         }
@@ -40,17 +38,20 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        // Validasi input tanpa konfirmasi password
+        // Validasi input + role
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:5',
+            'role' => 'required|in:Admin,Pegawai', // tambahkan role
         ], [
             'name.required' => 'Nama wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'email.unique' => 'Email sudah terdaftar.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 5 karakter.',
+            'role.required' => 'Role wajib dipilih.',
+            'role.in' => 'Role tidak valid.',
         ]);
 
         // Simpan user ke database
@@ -58,6 +59,7 @@ class AuthController extends Controller
             'name' => ucfirst($request->name),
             'email' => strtolower($request->email),
             'password' => Hash::make($request->password),
+            'role' => $request->role, // simpan role
         ]);
 
         return redirect()->route('login')->with('success', 'Pendaftaran berhasil! Silakan login.');
@@ -82,16 +84,16 @@ class AuthController extends Controller
 
         // Cek user dan password
         if ($user && Hash::check($request->password, $user->password)) {
-            // Simpan data ke session
+            // Simpan data ke session termasuk role
             Session::put('user_logged_in', true);
             Session::put('user_id', $user->id);
             Session::put('user_name', $user->name);
             Session::put('user_email', $user->email);
+            Session::put('user_role', $user->role);
 
             return redirect()->route('dashboard')->with('success', 'Login berhasil! Selamat datang, ' . $user->name);
         }
 
-        // Jika gagal login
         return back()->with('error', 'Email atau password salah.');
     }
 

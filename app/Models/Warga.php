@@ -1,17 +1,17 @@
 <?php
-
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class Warga extends Model
 {
     use HasFactory;
 
     // Pastikan nama tabel sesuai dengan migrasi
-    protected $table = 'warga';
+    protected $table      = 'warga';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'nama',
@@ -23,9 +23,12 @@ class Warga extends Model
     // Relasi ke perangkat desa
     public function perangkat()
     {
-        return $this->hasMany(Perangkat::class, 'warga_id');
+        return $this->hasMany(Perangkat::class, 'id');
     }
-
+    public function rwKetua()
+    {
+        return $this->hasOne(Rw::class, 'ketuaRwWargaId', 'id');
+    }
     // Scope untuk filter - SAMA PERSIS seperti di Perangkat
     public function scopeFilter(Builder $query, $request, array $filterableColumns): Builder
     {
@@ -41,7 +44,7 @@ class Warga extends Model
     public function scopeSearch($query, $request, array $columns)
     {
         if ($request->filled('search')) {
-            $query->where(function($q) use ($request, $columns) {
+            $query->where(function ($q) use ($request, $columns) {
                 foreach ($columns as $column) {
                     $q->orWhere($column, 'LIKE', '%' . $request->search . '%');
                 }

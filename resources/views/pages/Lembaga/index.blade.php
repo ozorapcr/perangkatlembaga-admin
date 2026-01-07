@@ -4,7 +4,7 @@
 <div class="main-content">
     <!-- Notifikasi -->
     @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" 
+    <div class="alert alert-success alert-dismissible fade show" role="alert"
          style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); color: white; border: none; border-radius: var(--border-radius); box-shadow: var(--shadow-sm);">
         <i class="fas fa-check-circle me-2"></i>
         {{ session('success') }}
@@ -43,7 +43,7 @@
                 <div class="stats-number">{{ $lembagaDesas->whereNotNull('kontak')->count() }}</div>
                 <div class="stats-label">Dengan Kontak</div>
                 <div class="progress mt-3" style="height: 6px; background: rgba(72, 187, 120, 0.1);">
-                    <div class="progress-bar" role="progressbar" 
+                    <div class="progress-bar" role="progressbar"
                          style="width: {{ $lembagaDesas->total() ? ($lembagaDesas->whereNotNull('kontak')->count()/$lembagaDesas->total())*100 : 0 }}%; background: var(--success);"></div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <div class="stats-number">{{ $lembagaDesas->whereNull('kontak')->count() }}</div>
                 <div class="stats-label">Tanpa Kontak</div>
                 <div class="progress mt-3" style="height: 6px; background: rgba(237, 137, 54, 0.1);">
-                    <div class="progress-bar" role="progressbar" 
+                    <div class="progress-bar" role="progressbar"
                          style="width: {{ $lembagaDesas->total() ? ($lembagaDesas->whereNull('kontak')->count()/$lembagaDesas->total())*100 : 0 }}%; background: var(--warning);"></div>
                 </div>
             </div>
@@ -96,8 +96,8 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label" style="color: var(--dark); font-weight: 500;">Nama Lembaga</label>
-                            <input type="text" name="search" class="form-control" 
-                                   value="{{ request('search') }}" 
+                            <input type="text" name="search" class="form-control"
+                                   value="{{ request('search') }}"
                                    placeholder="Cari nama lembaga atau deskripsi..."
                                    style="border-radius: 12px; border: 1px solid var(--gray-light); padding: 10px;">
                         </div>
@@ -167,23 +167,19 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('lembaga.show', $lembaga->lembaga_id) }}" 
-                                       class="btn-crud btn-detail btn-sm" 
-                                       title="Detail">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('lembaga.edit', $lembaga->lembaga_id) }}" 
-                                       class="btn-crud btn-edit btn-sm" 
+
+                                    <a href="{{ route('lembaga.edit', $lembaga->lembaga_id) }}"
+                                       class="btn-crud btn-edit btn-sm"
                                        title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('lembaga.destroy', $lembaga->lembaga_id) }}" 
-                                          method="POST" 
+                                    <form action="{{ route('lembaga.destroy', $lembaga->lembaga_id) }}"
+                                          method="POST"
                                           onsubmit="return confirm('Yakin menghapus lembaga {{ $lembaga->nama_lembaga }}?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" 
-                                                class="btn-crud btn-hapus btn-sm" 
+                                        <button type="submit"
+                                                class="btn-crud btn-hapus btn-sm"
                                                 title="Hapus">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -225,7 +221,7 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $lembagaDesas->previousPageUrl() }}" 
+                            <a class="page-link" href="{{ $lembagaDesas->previousPageUrl() }}"
                                style="border-radius: 12px; margin: 0 3px; border: 1px solid var(--gray-light); color: var(--primary);">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
@@ -236,14 +232,14 @@
                     @foreach ($lembagaDesas->links()->elements[0] as $page => $url)
                         @if ($page == $lembagaDesas->currentPage())
                             <li class="page-item active">
-                                <span class="page-link" 
+                                <span class="page-link"
                                       style="border-radius: 12px; margin: 0 3px; background: var(--primary-gradient); border: none;">
                                     {{ $page }}
                                 </span>
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $url }}" 
+                                <a class="page-link" href="{{ $url }}"
                                    style="border-radius: 12px; margin: 0 3px; border: 1px solid var(--gray-light); color: var(--dark);">
                                     {{ $page }}
                                 </a>
@@ -254,7 +250,7 @@
                     {{-- Next Page Link --}}
                     @if ($lembagaDesas->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $lembagaDesas->nextPageUrl() }}" 
+                            <a class="page-link" href="{{ $lembagaDesas->nextPageUrl() }}"
                                style="border-radius: 12px; margin: 0 3px; border: 1px solid var(--gray-light); color: var(--primary);">
                                 <i class="fas fa-chevron-right"></i>
                             </a>
@@ -274,7 +270,7 @@
 </div>
 
 <!-- WhatsApp Float Button -->
-<a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20bertanya%20tentang%20lembaga%20desa" 
+<a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20bertanya%20tentang%20lembaga%20desa"
    class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>

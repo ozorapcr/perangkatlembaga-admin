@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS sudah ada -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         /* SOFT THEME COLORS - SERAGAM SEMUA HALAMAN */
@@ -19,12 +21,12 @@
             --primary-light: #f9e6f6;     /* Very Light Pink */
             --primary-dark: #d597cc;      /* Medium Pink */
             --primary-gradient: linear-gradient(135deg, #e7b8e1 0%, #f2d2ef 100%);
-            
+
             --secondary: #c8b6ff;         /* Soft Lavender */
             --secondary-light: #f0ebff;   /* Light Lavender */
             --accent: #ffafcc;            /* Soft Coral Pink */
             --accent-light: #ffe3f1;      /* Light Coral Pink */
-            
+
             --light: #fff9fe;             /* Soft White */
             --light-gradient: linear-gradient(135deg, #fff9fe 0%, #fef7ff 100%);
             --dark: #5d576b;              /* Soft Dark Purple */
@@ -32,12 +34,12 @@
             --gray: #a8a2b8;              /* Soft Gray */
             --gray-light: #f0e9f2;        /* Very Light Lavender Gray */
             --gray-medium: #e7e0eb;
-            
+
             --success: #9ce0c2;           /* Soft Mint Green */
             --warning: #ffd6a5;           /* Soft Peach */
             --danger: #ffafaf;            /* Soft Coral */
             --info: #a0c4ff;              /* Soft Sky Blue */
-            
+
             /* UI Variables */
             --sidebar-width: 280px;
             --sidebar-collapsed: 80px;
@@ -590,7 +592,7 @@
             .logout-btn span {
                 display: none;
             }
-            
+
             .whatsapp-float {
                 width: 60px;
                 height: 60px;
@@ -683,7 +685,7 @@
     </style>
 </head>
 <body>
-    
+
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
@@ -694,61 +696,68 @@
         </div>
 
         <nav class="nav flex-column">
-            <a href="{{ route('dashboard') }}" 
+            <a href="{{ route('dashboard') }}"
                class="nav-link {{ isset($page) && $page == 'dashboard' ? 'active' : '' }}">
-                <i class="fas fa-chart-line"></i> 
+                <i class="fas fa-chart-line"></i>
                 <span>Dashboard</span>
             </a>
 
             <a href="{{ route('perangkat.index') }}"
                class="nav-link {{ isset($page) && $page == 'perangkat' ? 'active' : '' }}">
-                <i class="fas fa-users-gear"></i> 
+                <i class="fas fa-users-gear"></i>
                 <span>Perangkat Desa</span>
             </a>
 
             <!-- Menu Lembaga Desa -->
             <li class="nav-header">LEMBAGA DESA</li>
 
-            <a href="{{ route('lembaga.index') }}" 
+            <a href="{{ route('lembaga.index') }}"
                class="nav-link {{ request()->is('lembaga*') ? 'active' : '' }}">
-                <i class="fas fa-landmark"></i> 
+                <i class="fas fa-landmark"></i>
                 <span>Data Lembaga</span>
             </a>
 
-            <a href="{{ route('jabatan.index') }}" 
+            <a href="{{ route('jabatan.index') }}"
                class="nav-link {{ request()->is('jabatan*') ? 'active' : '' }}">
-                <i class="fas fa-id-card"></i> 
+                <i class="fas fa-id-card"></i>
                 <span>Jabatan Lembaga</span>
             </a>
 
-            <a href="{{ route('anggota-lembaga.index') }}" 
+            <a href="{{ route('anggota-lembaga.index') }}"
                class="nav-link {{ request()->is('anggota-lembaga*') ? 'active' : '' }}">
-                <i class="fas fa-users"></i> 
+                <i class="fas fa-users"></i>
                 <span>Anggota Lembaga</span>
             </a>
 
             <!-- Menu RT/RW -->
             <li class="nav-header">WILAYAH</li>
 
-            <a href="{{ route('rw.index') }}" 
+            <a href="{{ route('rw.index') }}"
                class="nav-link {{ request()->is('rw*') ? 'active' : '' }}">
-                <i class="fas fa-user-tie"></i> 
+                <i class="fas fa-user-tie"></i>
                 <span>Data RW</span>
             </a>
 
-            <a href="{{ route('rt.index') }}" 
+            <a href="{{ route('rt.index') }}"
                class="nav-link {{ request()->is('rt*') ? 'active' : '' }}">
-                <i class="fas fa-user-tie"></i> 
+                <i class="fas fa-user-tie"></i>
                 <span>Data RT</span>
             </a>
 
             <!-- Menu Warga -->
             <li class="nav-header">DATA WARGA</li>
 
-            <a href="{{ route('warga.index') }}" 
+            <a href="{{ route('warga.index') }}"
                class="nav-link {{ request()->is('warga*') ? 'active' : '' }}">
-                <i class="fas fa-people-roof"></i> 
+                <i class="fas fa-people-roof"></i>
                 <span>Data Warga</span>
+            </a>
+
+            <li class="nav-header">Lainnya</li>
+             <a href="{{ route('profile.index') }}"
+               class="nav-link {{ request()->is('profil*') ? 'active' : '' }}">
+                <i class="fas fa-user-tie"></i>
+                <span>Profil Pengembang</span>
             </a>
         </nav>
     </div>
@@ -758,7 +767,7 @@
         <!-- Top Navigation Bar -->
         <div class="navbar-top">
             <h5>
-                <i class="fas fa-table-columns"></i> 
+                <i class="fas fa-table-columns"></i>
                 <span>{{ ucfirst($page ?? 'Dashboard') }}</span>
             </h5>
 
@@ -767,7 +776,7 @@
                     <i class="fas fa-bell" title="Notifikasi"></i>
                     <span class="notification-badge">3</span>
                 </div>
-                
+
                 <i class="fas fa-user-circle" title="Profil" id="profileBtn"></i>
 
                 <!-- Logout Form -->
@@ -788,10 +797,49 @@
         </div>
 
         <!-- Footer -->
-        <div class="footer">
-            <small>© 2025 Sistem RW - Lembaga Pemberdayaan Masyarakat. All Rights Reserved</small>
+       <!-- Footer -->
+<footer class="bg-dark text-white pt-4 pb-2 mt-5">
+    <div class="container">
+        <div class="row">
+
+            <!-- Info Sistem RW -->
+            <div class="col-md-6 mb-3">
+                <h5 class="fw-bold">Sistem RW</h5>
+                <p class="small mb-0">Lembaga Pemberdayaan Masyarakat</p>
+
+            </div>
+
+            <!-- Jam Layanan -->
+            <div class="col-md-6 mb-3 text-md-end">
+                <h5 class="fw-bold">Jam Layanan</h5>
+                <p class="small mb-0"><i class="bi bi-clock-fill"></i> Senin - Jumat: 08.00 - 16.00</p>
+                <p class="small mb-0"><i class="bi bi-clock-history"></i> Sabtu: 08.00 - 12.00</p>
+                <p class="small mb-0"><i class="bi bi-x-circle-fill"></i> Minggu: Tutup</p>
+            </div>
+
+        </div>
+
+        <hr class="bg-secondary">
+
+        <div class="text-center small">
+            © 2025 Sistem RW - Lembaga Pemberdayaan Masyarakat. All Rights Reserved
         </div>
     </div>
+</footer>
+
+<style>
+footer {
+    font-size: 0.9rem;
+}
+
+footer h5 {
+    font-size: 1rem;
+}
+
+footer .bi {
+    margin-right: 5px;
+}
+</style>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/6282286304303?text=Halo%20Admin%20RW,%20saya%20ingin%20bertanya."
@@ -830,7 +878,7 @@
                 element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(element);
             });
-            
+
             // Profile button functionality
             const profileBtn = document.getElementById('profileBtn');
             if (profileBtn) {
@@ -838,7 +886,7 @@
                     alert('Fitur profil akan segera tersedia!');
                 });
             }
-            
+
             // Smooth scroll for page transitions
             window.scrollTo({
                 top: 0,

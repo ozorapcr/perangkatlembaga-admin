@@ -21,13 +21,13 @@ return new class extends Migration
                   ->references('id')
                   ->on('rws')
                   ->onDelete('cascade');
-            
-            // Untuk foreign key ke warga (jika tabel warga ada)
-            // $table->foreign('ketua_rt_warga_id')
-            //       ->references('id')
-            //       ->on('wargas')
-            //       ->onDelete('set null');
-            
+
+//            Untuk foreign key ke warga (jika tabel warga ada)
+            $table->foreign('ketua_rt_warga_id')
+                  ->references('id')
+                  ->on('warga')
+                  ->onDelete('set null');
+
             // Pastikan nomor RT unik dalam satu RW
             $table->unique(['rw_id', 'nomor_rt']);
         });
