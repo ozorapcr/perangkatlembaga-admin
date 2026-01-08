@@ -14,7 +14,7 @@ class LembagaSeeder extends Seeder
     public function run(): void
     {
         // Clear tabel jika ada data sebelumnya
-        LembagaDesa::truncate();
+        Lembaga::truncate();
 
         // Data dummy Lembaga Desa
         $lembagaData = [
