@@ -41,12 +41,36 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
         body {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary) 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: url('{{ asset('assets/img/back2.jpg') }}') center/cover no-repeat fixed;
+            position: relative;
+        }
+
+        /* BLUR EFFECT */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: inherit;
+            filter: blur(6px);
+            transform: scale(1.05);
+            z-index: -2;
+        }
+
+        /* OVERLAY SUPAYA TEKS JELAS */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, .35);
+            z-index: -1;
         }
 
         /* ==========================================
