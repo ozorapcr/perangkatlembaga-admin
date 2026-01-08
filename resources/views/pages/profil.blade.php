@@ -9,31 +9,31 @@
 
             <!-- Foto Kiri -->
             <div class="col-md-4 text-center mb-3 mb-md-0">
-                <img src="{{ asset('assets/img/gambar1.png') }}" alt="Foto Pengembang" class="profile-img-horizontal">
+                <img src="{{ asset('assets/img/zora 1.jpeg') }}" alt="Foto Pengembang" class="profile-img-horizontal">
             </div>
 
             <!-- Info Kanan -->
             <div class="col-md-8">
-                <h4 class="fw-bold mb-2">NAMA SENDIRI</h4>
-                <p class="text-muted mb-1"><strong>NIM:</strong> 12345678</p>
+                <h4 class="fw-bold mb-2">Ozora Feona Surya</h4>
+                <p class="text-muted mb-1"><strong>NIM:</strong> 2457301118</p>
                 <p class="text-muted mb-1"><strong>Prodi:</strong> Teknologi Informasi</p>
-                <p class="text-muted mb-1"><strong>Umur:</strong> 21 Tahun</p>
-                <p class="text-muted mb-1"><strong>Email:</strong> nama@example.com</p>
-                <p class="text-muted mb-1"><strong>No. HP:</strong> +62 812-3456-7890</p>
-                <p class="text-muted mb-1"><strong>Alamat:</strong> Desa Contoh, Kec. Contoh, Kab. Contoh</p>
+                <p class="text-muted mb-1"><strong>Umur:</strong> 19 Tahun</p>
+                <p class="text-muted mb-1"><strong>Email:</strong> ozora24si@mahasiswa.pcr.ac.id</p>
+                <p class="text-muted mb-1"><strong>No. HP:</strong> +62 82286304303</p>
+                <p class="text-muted mb-1"><strong>Universitas:</strong> Politeknik Caltex Riau</p>
 
                 <!-- Sosial Media -->
                 <div class="d-flex gap-3 mt-3">
-                    <a href="https://www.linkedin.com/in/nabilsahendra" target="_blank" class="social-icon linkedin" title="LinkedIn">
+                    <a href="www.linkedin.com/in/ozorafeonasurya" target="_blank" class="social-icon linkedin" title="LinkedIn">
                         <i class="bi bi-linkedin"></i>
                     </a>
-                    <a href="https://github.com/nabilsahendra" target="_blank" class="social-icon github" title="GitHub">
+                    <a href="https://github.com/ozorapcr" target="_blank" class="social-icon github" title="GitHub">
                         <i class="bi bi-github"></i>
                     </a>
-                    <a href="https://instagram.com/nabilsahendra" target="_blank" class="social-icon instagram" title="Instagram">
+                    <a href="https://www.instagram.com/ozorafeonasrya._" target="_blank" class="social-icon instagram" title="Instagram">
                         <i class="bi bi-instagram"></i>
                     </a>
-                    <a href="https://wa.me/6281234567890" target="_blank" class="social-icon whatsapp" title="WhatsApp">
+                    <a href="https://wa.me/6282286304303" target="_blank" class="social-icon whatsapp" title="WhatsApp">
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 </div>
