@@ -15,7 +15,7 @@ class AnggotaLembagaSeeder extends Seeder
     public function run()
     {
         // Ambil data yang diperlukan
-        $lembagas = LembagaDesa::all();
+        $lembagas = Lembaga::all();
         $wargas = Warga::take(20)->get(); // Ambil 20 warga pertama
         $jabatans = JabatanLembaga::all();
 
@@ -33,25 +33,25 @@ class AnggotaLembagaSeeder extends Seeder
         foreach ($lembagas as $lembaga) {
             // Tentukan berapa banyak anggota untuk lembaga ini (3-7 anggota)
             $jumlahAnggota = rand(3, 7);
-            
+
             for ($i = 0; $i < $jumlahAnggota; $i++) {
                 if ($wargaIndex >= count($wargas)) {
                     $wargaIndex = 0; // Reset jika sudah habis
                 }
-                
+
                 if ($jabatanIndex >= count($jabatans)) {
                     $jabatanIndex = 0; // Reset jika sudah habis
                 }
 
                 $warga = $wargas[$wargaIndex];
                 $jabatan = $jabatans[$jabatanIndex];
-                
+
                 // Tentukan tanggal mulai (1-2 tahun yang lalu)
                 $tglMulai = Carbon::now()->subYears(rand(1, 2))->subDays(rand(0, 365));
-                
+
                 // 70% anggota aktif, 30% non aktif
                 $isAktif = rand(1, 10) <= 7;
-                
+
                 if ($isAktif) {
                     $tglSelesai = null; // Masih aktif
                 } else {
@@ -86,11 +86,11 @@ class AnggotaLembagaSeeder extends Seeder
 
         $this->command->info('AnggotaLembagaSeeder berhasil dijalankan!');
         $this->command->info('Total data anggota lembaga: ' . count($anggotaData));
-        
+
         // Hitung statistik
         $totalAktif = AnggotaLembaga::aktif()->count();
         $totalNonAktif = AnggotaLembaga::nonAktif()->count();
-        
+
         $this->command->info('Anggota aktif: ' . $totalAktif);
         $this->command->info('Anggota non aktif: ' . $totalNonAktif);
     }
