@@ -13,6 +13,7 @@ class CreateFirstUser extends Seeder
     {
         User::create([
             'name' => 'Admin',
+            'role' => 'Admin',
             'email' => 'admin@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password123'), // ganti sesuai kebutuhan
