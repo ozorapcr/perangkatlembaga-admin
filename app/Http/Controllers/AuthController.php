@@ -14,12 +14,8 @@ class AuthController extends Controller
      */
     public function showLoginForm()
     {
-        if (Session::get('user_logged_in')) {
-            return redirect()->route('dashboard');
-        }
 
         return view('pages.auth.login');
-        
     }
 
     /**
@@ -27,10 +23,6 @@ class AuthController extends Controller
      */
     public function showRegisterForm()
     {
-        if (Session::get('user_logged_in')) {
-            return redirect()->route('dashboard');
-        }
-
         return view('pages.auth.register');
     }
 
