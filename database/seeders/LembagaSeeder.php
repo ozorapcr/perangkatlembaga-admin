@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\LembagaDesa;
 
-class LembagaDesaSeeder extends Seeder
+class LembagaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -44,7 +44,7 @@ class LembagaDesaSeeder extends Seeder
                 'deskripsi' => 'Lembaga masyarakat yang merupakan bagian dari pemerintahan desa untuk melayani masyarakat di tingkat RT dan RW.',
                 'kontak' => '0877-8899-0011',
             ],
-            
+
             // Lembaga Ekonomi
             [
                 'nama_lembaga' => 'Kelompok Tani Sumber Makmur',
@@ -66,7 +66,7 @@ class LembagaDesaSeeder extends Seeder
                 'deskripsi' => 'Kelompok usaha yang digerakkan oleh ibu-ibu desa untuk memproduksi kerajinan tangan dan makanan olahan.',
                 'kontak' => '0822-3344-5566',
             ],
-            
+
             // Lembaga Sosial dan Keagamaan
             [
                 'nama_lembaga' => 'Majelis Taklim Al-Ikhlas',
@@ -88,7 +88,7 @@ class LembagaDesaSeeder extends Seeder
                 'deskripsi' => 'Kelompok yang melestarikan dan mengembangkan seni budaya tradisional desa seperti tari, musik, dan teater.',
                 'kontak' => null, // Tanpa kontak
             ],
-            
+
             // Lembaga Pendidikan
             [
                 'nama_lembaga' => 'PAUD Bunga Desa',
@@ -100,7 +100,7 @@ class LembagaDesaSeeder extends Seeder
                 'deskripsi' => 'Program pendidikan non-formal untuk masyarakat yang buta huruf atau putus sekolah.',
                 'kontak' => '0878-9900-1122',
             ],
-            
+
             // Lembaga Pemuda dan Olahraga
             [
                 'nama_lembaga' => 'Klub Sepak Bola Desa',
